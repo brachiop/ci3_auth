@@ -58,28 +58,24 @@ $route['admin/dashboard'] = 'dashboard_admin/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 */
-
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Étudiant
+// ==================
+// Authentification
+// ==================
 $route['auth'] = 'auth/index';
-$route['auth/login_ajax'] = 'auth/login_ajax';
-
-// Admin
+$route['auth/etudiant_login'] = 'auth/etudiant_login';
 $route['auth/admin'] = 'auth/admin';
-$route['auth/login_admin_ajax'] = 'auth/login_admin_ajax';
-
-// Dashboard Étudiant
-$route['etudiant/dashboard'] = 'dashboard/index';  // ou le nom de ton contrôleur/vues existant
-
-// Dashboard Admin
-//$route['dashboard_admin'] = 'admin/dashboard_admin'; // si tu as un contrôleur Dashboard_admin
-$route['admin/dashboard_admin'] = 'dashboard_admin/index'; // si tu as un contrôleur Dashboard_admin
-
-// Logout
+$route['auth/admin_login'] = 'auth/admin_login';
 $route['auth/logout'] = 'auth/logout';
+
+// ==================
+// Dashboards
+// ==================
+$route['etudiant/dashboard'] = 'etudiant/dashboard';
+$route['dashboard_admin'] = 'dashboard_admin/index';
 
 
 

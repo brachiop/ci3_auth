@@ -17,7 +17,7 @@ class Dashboard_admin extends CI_Controller {
     public function index()
     {
         // Récupérer les données de l'admin
-        $login = $this->session->userdata('LOGIN');
+        $login = $this->session->userdata('login');
         $user = $this->User_model->get_user_by_login($login);
 
         $data['admin'] = $user;
