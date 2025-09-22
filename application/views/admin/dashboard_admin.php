@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
-<?php $this->load->view('templates/header', $data); ?>
+<?php //$this->load->view('templates/header', $data); ?>
+<?php $this->load->view('templates/header'); ?>
 <div class="container-scroller">
     <?php $this->load->view('templates/sidebar'); ?>
 
