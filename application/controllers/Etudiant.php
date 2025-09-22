@@ -15,7 +15,7 @@ class Etudiant extends CI_Controller {
       }
 
       public function infos_privees() {
-          $cne = $this->session->userdata('CNE');      // vérifier que la session contient bien 'CNE'
+          $cne = $this->session->userdata('cne');      // vérifier que la session contient bien 'CNE'
             if (!$cne) {
                 redirect('auth'); // pas de CNE → renvoyer vers la connexion
             }
@@ -24,7 +24,10 @@ class Etudiant extends CI_Controller {
       }
 
       public function infos_scolaires() {
-          $cne = $this->session->userdata('CNE');
+          $cne = $this->session->userdata('cne');
+            if (!$cne) {
+                redirect('auth'); // pas de CNE → renvoyer vers la connexion
+            }          
           $data['etudiant'] = $this->User_model->get_etudiant_by_identifier($cne);
           $data['annee_univ'] = date('Y') . '/' . (date('Y')+1);
           $data['semestre_actuel'] = session_value('semestre_actuel', 'S1');

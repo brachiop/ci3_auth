@@ -27,7 +27,7 @@ error_reporting(E_ALL);
                     
                     <div class="card">
                         <div class="card-body">
-                        <?php if (isset($etudiant) && is_array($etudiant)): ?>
+                        <?php if (!empty($etudiant) && is_array($etudiant)): ?>
                             <p><strong>Nom :</strong> <span class="value"><?= display_value($etudiant, 'NOM') ?> <?= display_value($etudiant, 'PRENOM') ?></span></p>
                             <p><strong>CIN :</strong> <span class="value"><?= display_value($etudiant, 'CIN') ?></span></p>
                             <p><strong>CNE :</strong> <span class="value"><?= display_value($etudiant, 'CNE') ?></span></p>
@@ -39,7 +39,7 @@ error_reporting(E_ALL);
                         <?php endif; ?>
                         </div>
                     </div>
-                
+
                 <!-- </div> -->
 
             </div>

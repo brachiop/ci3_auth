@@ -31,7 +31,7 @@ error_reporting(E_ALL);
                             <p><strong>Filière :</strong> <span class="value-acad"><?= session_value('code_fil', '') ?></span></p>
                             <p><strong>Année universitaire :</strong> <span class="value-acad"><?= session_value('annee_univ', '') ?></span></p>
                             <p><strong>Semestre actuel :</strong> <span class="value-acad"><?= session_value('semestre_actuel', 'S1') ?></span></p>
-                            <p><strong>Statut :</strong> <span class="value-acad badge badge-success">Inscrit</span></p>
+                            <p><strong>Statut :</strong> <span class="badge badge-success">Inscrit</span></p>
                         <?php else: ?>
                             <p>Aucune information disponible.</p>
                         <?php endif; ?>               
