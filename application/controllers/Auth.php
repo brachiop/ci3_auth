@@ -99,6 +99,7 @@ class Auth extends CI_Controller {
     // Déconnexion (étudiant ou admin)
     public function logout() {
         $this->session->sess_destroy();
-        redirect('auth');
+        //redirect('auth');
+        redirect(base_url()); // Redirige vers la racine
     }
 }
