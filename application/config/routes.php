@@ -50,10 +50,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 //$route['default_controller'] = 'welcome';
+/*
 $route['default_controller'] = 'auth';
 $route['etudiant/infos_privees'] = 'etudiant/infos_privees';
 $route['etudiant/infos_scolaires'] = 'etudiant/infos_scolaires';
+$route['admin/dashboard'] = 'dashboard_admin/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+*/
+$route['default_controller'] = 'auth';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
+
+// ==================
+// Authentification
+// ==================
+$route['auth'] = 'auth/index';
+$route['auth/etudiant_login'] = 'auth/etudiant_login';
+$route['auth/admin'] = 'auth/admin';
+$route['auth/admin_login'] = 'auth/admin_login';
+$route['auth/logout'] = 'auth/logout';
+
+// ==================
+// Dashboards
+// ==================
+$route['etudiant/dashboard'] = 'etudiant/dashboard';
+$route['dashboard_admin'] = 'dashboard_admin/index';
+
 
 
