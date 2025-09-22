@@ -1,0 +1,58 @@
+.sidebar-title .short-title {
+    display: none;
+}
+
+.sidebar-icon-only .sidebar-title .full-title {
+    display: none;
+}
+
+.sidebar-icon-only .sidebar-title .short-title {
+    display: inline;
+}
+
+.sidebar-title {
+    min-height: 50px;  /* ajuste selon ton template */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sidebar rétracté : afficher un titre court */
+.sidebar-icon-only .sidebar .nav-category {
+    display: block !important;      /* forcer affichage */
+    text-align: center;             /* centrer le texte */
+    font-size: 0.9rem;              /* titre plus petit */
+    line-height: 2.5;               /* hauteur ajustée pour ne pas chevaucher les icones */
+    padding: 0.5rem 0;              /* espacement vertical */
+}
+
+#message {
+    margin-bottom: 10px;
+    text-align: center;   /* centre le texte horizontalement */
+    margin-top: 15px;     /* espace au-dessus */
+    font-weight: bold;    /* texte plus visible */
+    width: 100%;          /* prend toute la largeur du formulaire */
+    display: block;       /* s’assure qu’il se comporte comme un bloc */
+}
+
+#login-message {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Labels = police normale */
+.card-body p strong {
+    font-weight: normal;
+}
+
+/* Valeurs personnelles */
+.card-body .value {
+    font-weight: bold;
+    color: #FFD700; /* jaune foncé */
+}
+
+/* Valeurs académiques */
+.card-body .value-acad {
+    font-weight: bold;
+    color: #3AF24B; /* vert clair */
+}
