@@ -1,3 +1,4 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -80,6 +81,3 @@ $route['admin/dashboard_admin'] = 'dashboard_admin/index'; // si tu as un contrÃ
 
 // Logout
 $route['auth/logout'] = 'auth/logout';
-
-
-
