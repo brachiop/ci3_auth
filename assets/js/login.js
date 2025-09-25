@@ -1,44 +1,66 @@
 // assets/js/login.js
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('login-form');
-    const messageDiv = document.getElementById('login-message');
+// Gestion de la connexion étudiant
+document.getElementById('loginEtudiantForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const identifiant = document.getElementById('identifiant').value.trim();
+    const cin = document.getElementById('cin').value.trim();
+    const messageDiv = document.getElementById('etudiant-message');
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    if (!identifiant || !cin) {
+        showMessage('Veuillez saisir votre CNE/Code Massar et CIN', 'error', messageDiv);
+        return;
+    }
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+    // Désactiver le bouton
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connexion...';
 
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value.trim();
+    console.log('Tentative de connexion étudiant:', { identifiant, cin });
+    console.log('URL:', BASE_URL + 'auth/login_ajax');
 
-        if (!username || !password) {
-            messageDiv.textContent = 'Veuillez remplir tous les champs.';
-            return;
+    fetch(BASE_URL + 'auth/login_ajax', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ 
+            identifiant: identifiant,
+            cin: cin 
+        })
+    })
+    .then(response => {
+        console.log('Statut HTTP:', response.status, response.statusText);
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status} ${response.statusText}`);
         }
-
-        fetch(BASE_URL + 'auth/login_ajax', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                messageDiv.classList.remove('text-danger');
-                messageDiv.classList.add('text-success');
-                messageDiv.textContent = data.message;
-                // Redirection après 1 seconde
-                setTimeout(() => { window.location.href = BASE_URL + 'dashboard'; }, 1000);
-            } else {
-                messageDiv.classList.remove('text-success');
-                messageDiv.classList.add('text-danger');
-                messageDiv.textContent = data.message;
-                if (data.clearFields) {
-                    form.reset();
-                }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Réponse serveur:', data);
+        
+        if (data.success) {
+            showMessage(data.message, 'success', messageDiv);
+            setTimeout(() => {
+                window.location.href = data.redirect || BASE_URL + 'dashboard';
+            }, 1000);
+        } else {
+            showMessage(data.message, 'error', messageDiv);
+            if (data.clearFields) {
+                document.getElementById('identifiant').value = '';
+                document.getElementById('cin').value = '';
+                document.getElementById('identifiant').focus();
             }
-        })
-        .catch(err => {
-            console.error(err);
-            messageDiv.textContent = 'Erreur serveur, veuillez réessayer.';
-        });
+        }
+    })
+    .catch(err => {
+        console.error('Erreur fetch complète:', err);
+        showMessage('Erreur de connexion au serveur: ' + err.message, 'error', messageDiv);
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Se connecter';
     });
 });

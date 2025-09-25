@@ -90,5 +90,19 @@ class Etudiant_model extends CI_Model {
         $query = $this->db->get('inscription');
         return $query->result_array();
     }
+
+    // ===================== Connexion =====================    
+        /**
+     * Enregistrer la connexion d'un étudiant
+     */
+    public function set_connecte($cne) {
+        $data = array(
+            'CNE' => $cne,
+            'DATE' => date('Y-m-d'),
+            'HEURE' => date('H:i:s')
+        );
+        $this->db->insert('CONNECTES', $data);
+    }
+
 }
 ?>
