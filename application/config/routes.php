@@ -1,6 +1,4 @@
-
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -63,21 +61,33 @@ $route['translate_uri_dashes'] = FALSE;
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
 // Étudiant
 $route['auth'] = 'auth/index';
 $route['auth/login_ajax'] = 'auth/login_ajax';
-
 // Admin
 $route['auth/admin'] = 'auth/admin';
 $route['auth/login_admin_ajax'] = 'auth/login_admin_ajax';
-
 // Dashboard Étudiant
 $route['etudiant/dashboard'] = 'dashboard/index';  // ou le nom de ton contrôleur/vues existant
-
 // Dashboard Admin
-//$route['dashboard_admin'] = 'admin/dashboard_admin'; // si tu as un contrôleur Dashboard_admin
 $route['admin/dashboard_admin'] = 'dashboard_admin/index'; // si tu as un contrôleur Dashboard_admin
+
+// Routes pour le Dashboard Etudiant  
+$route['dashboard'] = 'dashboard/index';              // Étudiant
+$route['dashboard/index'] = 'dashboard/index';        // Étudiant
+
+// Routes pour le Dashboard ADMIN  
+$route['dashboard_admin'] = 'dashboard_admin/index';  // Admin
+$route['dashboard_admin/index'] = 'dashboard_admin/index'; // Admin
+
+// Routes pour les étudiants (assurez-vous qu'elles existent)
+//$route['etudiants/profil'] = 'etudiants/profil';
+$route['etudiants/infos_privees'] = 'etudiants/infos_privees';
+$route['etudiants/infos_scolaires'] = 'etudiants/infos_scolaires';
 
 // Logout
 $route['auth/logout'] = 'auth/logout';
+// Ajout
+$route['admin/etudiants'] = 'admin_etudiants/index';
+$route['admin/etudiants/ajouter'] = 'admin_etudiants/ajouter';
+

@@ -37,11 +37,18 @@ class User_model extends CI_Model {
     /**
      * Récupérer un user/admin par login
      */
+
     public function get_user_by_login($login) {
         $query = $this->db->get_where('users', array('LOGIN' => $login));
         return $query->row_array(); // null si pas trouvé
     }
-
+/*
+public function get_user_by_login($login) {
+    $this->db->where('LOGIN', $login);
+    $query = $this->db->get('users');
+    return $query->row_array(); // Retourne null si pas trouvé
+}
+*/
     /**
      * Vérifier le mot de passe d'un user/admin
      */

@@ -12,7 +12,8 @@
                 <span class="short-title">Menu</span>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                <a class="nav-link" href="<?= 
+                    $this->session->userdata('admin_loggedin') ? site_url('dashboard_admin') : site_url('dashboard')?>">
                     <span class="menu-icon">
                         <i class="mdi mdi-speedometer"></i>
                     </span>

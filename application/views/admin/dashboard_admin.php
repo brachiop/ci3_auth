@@ -1,4 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php
+// Debug de la session en haut du fichier
+echo "<!-- Session debug: ";
+print_r($this->session->all_userdata());
+echo " -->";
+?>
 
 <?php //$this->load->view('templates/header', $data); ?>
 <?php $this->load->view('templates/header'); ?>

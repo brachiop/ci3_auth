@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 messageDiv.classList.remove('text-danger');
                 messageDiv.classList.add('text-success');
                 messageDiv.textContent = data.message;
-                setTimeout(() => { window.location.href = BASE_URL + 'admin/dashboard_admin'; }, 1000);
+                setTimeout(() => { window.location.href = BASE_URL + 'dashboard_admin'; }, 1000);
             } else {
                 messageDiv.classList.remove('text-success');
                 messageDiv.classList.add('text-danger');
