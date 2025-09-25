@@ -15,11 +15,21 @@
                 <a class="nav-link" href="<?= 
                     $this->session->userdata('admin_loggedin') ? site_url('dashboard_admin') : site_url('dashboard')?>">
                     <span class="menu-icon">
-                        <i class="mdi mdi-speedometer"></i>
+                        <i class="mdi mdi-speedometer menu-icon"></i>
                     </span>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
+
+        <!-- Menu Admin (seulement si admin connecté) -->
+        <?php if ($this->session->userdata('admin_loggedin')): ?>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+                <span class="menu-title">Gestion des Étudiants</span>
+            </a>
+        </li>
+        <?php endif; ?>
 
             <!-- Mes Infos -->
             <li class="nav-item menu-items">
@@ -90,6 +100,17 @@
                     </ul>
                 </div>
             </li>
+            
+            <!-- Déconnexion - BIEN ALIGNÉ -->
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="<?= site_url('auth/logout') ?>">
+                    <span class="menu-icon"><i class="mdi mdi-logout"></i></span>
+                    <span class="menu-title">Déconnexion</span>
+                </a>
+            </li>          
+
+           
+            
         </ul>
     </nav>
     

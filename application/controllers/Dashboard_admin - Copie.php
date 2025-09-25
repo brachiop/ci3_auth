@@ -8,7 +8,6 @@ class Dashboard_admin extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         $this->load->model('User_model');
-        $this->load->model('Etudiant_model'); // Ajouter ce modèle
         // Vérifier que l’admin est connecté et a le bon rôle
         if (!$this->session->userdata('admin_loggedin') || $this->session->userdata('role') !== 'ADMIN') {
             redirect('auth/admin');  // ou vers la page login admin
@@ -21,34 +20,10 @@ class Dashboard_admin extends CI_Controller {
         $login = $this->session->userdata('login');
         $user = $this->User_model->get_user_by_login($login);
 
-        // Statistiques simples
-        $data['stats'] = $this->get_stats();
         $data['admin'] = $user;
         $data['title'] = "Tableau de bord Admin";
 
         $this->load->view('admin/dashboard_admin', $data);
     }
-
-    /**
-     * Récupérer les statistiques basiques
-     */
-    private function get_stats()
-    {
-        // Nombre total d'étudiants
-        $total_etudiants = $this->Etudiant_model->get_total_etudiants();
-        
-        // Nombre d'étudiants connectés aujourd'hui
-        $connectes_aujourdhui = $this->Etudiant_model->get_connectes_aujourdhui();
-        
-        // Dernières connexions
-        $dernieres_connexions = $this->Etudiant_model->get_dernieres_connexions(5);
-
-        return [
-            'total_etudiants' => $total_etudiants,
-            'connectes_aujourdhui' => $connectes_aujourdhui,
-            'dernieres_connexions' => $dernieres_connexions
-        ];
-    }
-
     
 }

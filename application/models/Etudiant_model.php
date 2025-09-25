@@ -25,9 +25,42 @@ class Etudiant_model extends CI_Model {
     /**
      * Récupérer un étudiant par ID
      */
-    public function get_etudiant_by_id($id) {
+    public function get_etudiant_by_id($id)
+        {
+            $this->db->where('ID', $id);
+            $query = $this->db->get('etudiants');
+            return $query->row_array();
+        }
+
+/*    public function get_etudiant_by_id($id) {
         $query = $this->db->get_where('etudiants', array('ID' => $id));
         return $query->row_array();
+    }
+*/    
+
+    /**
+     * Récupérer les étudiants paginés
+     */
+    public function get_etudiants_pagines($limit, $offset)
+    {
+        $this->db->order_by('NOM, PRENOM');
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get('etudiants');
+        return $query->result_array();
+    }
+
+    /**
+     * Rechercher des étudiants
+     */
+    public function rechercher_etudiants($term)
+    {
+        $this->db->like('NOM', $term);
+        $this->db->or_like('PRENOM', $term);
+        $this->db->or_like('CNE', $term);
+        $this->db->or_like('C_MASSAR', $term);
+        $this->db->order_by('NOM, PRENOM');
+        $query = $this->db->get('etudiants');
+        return $query->result_array();
     }
 
     /**
@@ -39,19 +72,19 @@ class Etudiant_model extends CI_Model {
     }
 
     /**
-     * Récupérer tous les étudiants (pour admin)
-     */
-    public function get_all_etudiants() {
-        $query = $this->db->get('etudiants');
-        return $query->result_array();
-    }
-
-    /**
      * Vérifie si un étudiant est autorisé à se connecter
      */
     public function get_autorisation($cne) {
         $query = $this->db->get_where('autorise', array('CNE' => $cne));
         return $query->row_array();
+    }
+
+    /**
+     * Récupérer tous les étudiants (pour admin)
+     */
+    public function get_all_etudiants() {
+        $query = $this->db->get('etudiants');
+        return $query->result_array();
     }
 
     /**
@@ -103,6 +136,39 @@ class Etudiant_model extends CI_Model {
         );
         $this->db->insert('CONNECTES', $data);
     }
+    
+      /**
+       * Compter le nombre total d'étudiants
+       */
+      public function get_total_etudiants()
+      {
+          return $this->db->count_all('etudiants');
+      }
+
+      /**
+       * Compter les étudiants connectés aujourd'hui
+       */
+      public function get_connectes_aujourdhui()
+      {
+          $today = date('Y-m-d');
+          $this->db->where('DATE', $today);
+          $this->db->distinct('CNE');
+          return $this->db->count_all_results('connectes');
+      }
+
+      /**
+       * Récupérer les dernières connexions
+       */
+      public function get_dernieres_connexions($limit = 5)
+      {
+          $this->db->select('c.*, e.NOM, e.PRENOM');
+          $this->db->from('connectes c');
+          $this->db->join('etudiants e', 'c.CNE = e.CNE');
+          $this->db->order_by('c.DATE DESC, c.HEURE DESC');
+          $this->db->limit($limit);
+          $query = $this->db->get();
+          return $query->result_array();
+      }    
 
 }
 ?>
