@@ -104,25 +104,6 @@ class Etudiant_model extends CI_Model {
         return $this->db->delete('etudiants');
     }
 
-    // ===================== Données académiques =====================
-
-    /**
-     * Récupérer les notes d'un étudiant
-     */
-    public function get_notes_etudiant($cne) {
-        $this->db->where('CNE', $cne);
-        $query = $this->db->get('examens');
-        return $query->result_array();
-    }
-
-    /**
-     * Récupérer les inscriptions d'un étudiant
-     */
-    public function get_inscriptions_etudiant($cne) {
-        $this->db->where('CNE', $cne);
-        $query = $this->db->get('inscription');
-        return $query->result_array();
-    }
 
     // ===================== Connexion =====================    
         /**
@@ -168,7 +149,69 @@ class Etudiant_model extends CI_Model {
           $this->db->limit($limit);
           $query = $this->db->get();
           return $query->result_array();
-      }    
+      } 
+      
+      /**
+       * Récupérer l'historique des connexions d'un étudiant
+       */
+      public function get_historique_connexions($cne, $limit = 10)
+      {
+          $this->db->where('CNE', $cne);
+          $this->db->order_by('DATE DESC, HEURE DESC');
+          $this->db->limit($limit);
+          $query = $this->db->get('connectes');
+          return $query->result_array();
+      }
+      
+      // ===================== Données académiques =====================
+      /**
+       * Récupérer les notes d'un étudiant
+       */
+      public function get_notes_etudiant($cne)
+      {
+          $this->db->where('CNE', $cne);
+          $this->db->order_by('ANNEE_UNIV DESC, CODE_MOD');
+          $query = $this->db->get('examens');
+          return $query->result_array();
+      }
+
+      /**
+       * Récupérer les inscriptions d'un étudiant
+       */
+
+      public function get_inscriptions_etudiant($cne)
+      {
+          $this->db->where('CNE', $cne);
+          $this->db->order_by('ANNEE_UNIV DESC, CODE_MOD');
+          $query = $this->db->get('inscription');
+          return $query->result_array();
+      }         
+
+
+
+
+    /**
+     * Récupérer les notes d'un étudiant
+     */
+/*
+    public function get_notes_etudiant($cne) {
+        $this->db->where('CNE', $cne);
+        $query = $this->db->get('examens');
+        return $query->result_array();
+    }
+*/
+    /**
+     * Récupérer les inscriptions d'un étudiant
+     */
+/*     
+    public function get_inscriptions_etudiant($cne) {
+        $this->db->where('CNE', $cne);
+        $query = $this->db->get('inscription');
+        return $query->result_array();
+    }
+*/
+
+
 
 }
 ?>

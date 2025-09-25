@@ -45,7 +45,7 @@ class Etudiants_admin extends CI_Controller {
     }
 
     /**
-     * Voir les détails d'un étudiant
+     * Voir les détails complets d'un étudiant
      */
     public function voir($id)
     {
@@ -55,11 +55,18 @@ class Etudiants_admin extends CI_Controller {
             show_404();
         }
         
+        // Récupérer les données supplémentaires
         $data['etudiant'] = $etudiant;
-        $data['title'] = 'Détails de ' . $etudiant['PRENOM'] . ' ' . $etudiant['NOM'];
+        $data['autorisation'] = $this->Etudiant_model->get_autorisation($etudiant['CNE']);
+        $data['connexions'] = $this->Etudiant_model->get_historique_connexions($etudiant['CNE'], 10);
+        $data['notes'] = $this->Etudiant_model->get_notes_etudiant($etudiant['CNE']);
+        $data['inscriptions'] = $this->Etudiant_model->get_inscriptions_etudiant($etudiant['CNE']);
         
-        $this->load->view('templates/header', $data);
+        $data['title'] = $etudiant['PRENOM'] . ' ' . $etudiant['NOM'] . ' - Détails';
+        
         $this->load->view('admin/etudiant_voir', $data);
-        $this->load->view('templates/footer');
     }
+
+
+
 }

@@ -95,3 +95,5 @@ $route['etudiants_admin'] = 'etudiants_admin/index';
 $route['etudiants_admin/index'] = 'etudiants_admin/index';
 $route['etudiants_admin/index/(:num)'] = 'etudiants_admin/index/$1';
 $route['etudiants_admin/voir/(:num)'] = 'etudiants_admin/voir/$1';
+
+$route['etudiants_admin/voir/(:num)'] = 'etudiants_admin/voir/$1';
