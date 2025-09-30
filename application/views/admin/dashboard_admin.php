@@ -1,17 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<?php
-// Debug de la session en haut du fichier
-echo "<!-- Session debug: ";
-print_r($this->session->all_userdata());
-echo " -->";
-?>
 
-<?php //$this->load->view('templates/header', $data); ?>
 <?php $this->load->view('templates/header'); ?>
-<div class="container-scroller">
     <?php $this->load->view('templates/sidebar'); ?>
-
-    <div class="container-fluid page-body-wrapper">
         <?php $this->load->view('templates/navbar'); ?>
 
         <div class="main-panel">
@@ -154,9 +144,4 @@ echo " -->";
             </div> <!-- content-wrapper -->
 
             <?php $this->load->view('templates/footer'); ?>
-        </div> <!-- main-panel ends -->
 
-    </div> <!-- page-body-wrapper -->
-</div> <!-- container-scroller -->
-
-<?php $this->load->view('templates/js'); ?>

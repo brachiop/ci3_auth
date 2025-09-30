@@ -1,6 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-    
-    <div class="container-fluid page-body-wrapper">
+
         <!-- Navbar -->
         <nav class="navbar fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">

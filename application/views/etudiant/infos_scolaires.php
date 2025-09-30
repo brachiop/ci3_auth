@@ -1,22 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-<?php 
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-?>
-<!-- Header -->
+
 <?php $this->load->view('templates/header'); ?>
-
-<div class="container-scroller">
-
-<!-- Sidebar -->
-<?php $this->load->view('templates/sidebar'); ?>    
-    
-    <!-- Page Body Wrapper -->
-    <div class="container-fluid page-body-wrapper">
-    
-<!-- Navbar -->
-<?php $this->load->view('templates/navbar'); ?>
- 
+    <?php $this->load->view('templates/sidebar'); ?>
+        <?php $this->load->view('templates/navbar'); ?> 
 
         <!-- Main Panel -->
         <div class="main-panel">
@@ -39,24 +25,7 @@ error_reporting(E_ALL);
                     </div>
                 </div>
 
-
-
-
             </div>
             
             <!-- Footer -->
             <?php $this->load->view('templates/footer'); ?>
-            
-        </div>
-        <!-- main-panel ends -->
-
-    </div>
-    <!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller ends -->
-
-<!-- JS principal -->
-<?php $this->load->view('templates/js'); ?>
-
-</body>
-</html>

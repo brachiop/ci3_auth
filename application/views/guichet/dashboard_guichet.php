@@ -1,16 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
-<!-- Header -->
 <?php $this->load->view('templates/header'); ?>
-
-<div class="container-scroller">
-    <!-- Sidebar -->
-    <?php $this->load->view('templates/sidebar'); ?>    
-    <!-- Page Body Wrapper -->
-    <div class="container-fluid page-body-wrapper">
-        <!-- Navbar -->
+    <?php $this->load->view('templates/sidebar'); ?>
         <?php $this->load->view('templates/navbar'); ?>
-
+        
         <!-- Main Panel -->
         <div class="main-panel">
             <div class="content-wrapper">
@@ -94,11 +87,3 @@
             
             <!-- Footer -->
             <?php $this->load->view('templates/footer'); ?>
-        </div>
-    </div>
-</div>
-
-<!-- JS principal -->
-<?php $this->load->view('templates/js'); ?>
-</body>
-</html>

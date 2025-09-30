@@ -1,18 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
-<!-- Header -->
 <?php $this->load->view('templates/header'); ?>
-
-<div class="container-scroller">
-
-    <!-- Sidebar -->
-    <?php $this->load->view('templates/sidebar'); ?>    
-    
-    <!-- Page Body Wrapper -->
-    <div class="container-fluid page-body-wrapper">
-    
-      <!-- Navbar -->
-      <?php $this->load->view('templates/navbar'); ?>
+    <?php $this->load->view('templates/sidebar'); ?>
+        <?php $this->load->view('templates/navbar'); ?>
 
         <!-- Main Panel -->
         <div class="main-panel">
@@ -129,20 +119,8 @@
                 </div>
 
             </div>
-            
-            <!-- Footer -->
-            <?php $this->load->view('templates/footer'); ?>
-            
-        </div>
-        <!-- main-panel ends -->
 
-    </div>
-    <!-- page-body-wrapper ends -->
-</div>
-<!-- container-scroller ends -->
-
-<!-- JS principal -->
-<?php $this->load->view('templates/js'); ?>
+<!-- JavaScript AVANT le footer -->
 
 <script>
 document.getElementById('searchForm').addEventListener('submit', function(e) {
@@ -155,6 +133,5 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
     }
 });
 </script>
-
-</body>
-</html>
+            
+        <?php $this->load->view('templates/footer'); ?>
