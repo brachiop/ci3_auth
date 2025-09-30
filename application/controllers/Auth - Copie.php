@@ -31,23 +31,14 @@ class Auth extends CI_Controller {
         $this->load->view('auth/login_tabs');
     }
 
-    
+    // Page de login admin
 /*
     public function admin() {
         $this->load->view('auth/login_admin');
     }
+*/
 
-        // Page de login admin
-      public function admin() {
-          $this->load->view('auth/login_admin'); // ou votre vue de connexion admin
-      }
-*/  
-public function admin() {
-    // Rediriger vers la page de connexion principale qui a les onglets
-    redirect('auth/login_admin');
-}    
-
-     // Traitement connexion étudiant via AJAX
+      // Traitement connexion étudiant via AJAX
       public function login_ajax() {
           // Activer l'affichage des erreurs
           error_reporting(E_ALL);
@@ -177,10 +168,8 @@ public function admin() {
           }
       }
 
-
-
     // Traitement connexion Admin via AJAX
-/*
+
 public function login_admin_ajax() {
     header('Content-Type: application/json');
 
@@ -190,134 +179,53 @@ public function login_admin_ajax() {
     $login = isset($input['login']) ? trim($input['login']) : '';
     $motdepasse = isset($input['motdepasse']) ? trim($input['motdepasse']) : '';
 
+    // Debug
+    //error_log("Tentative de connexion admin: " . $login);
+
     if (empty($login) || empty($motdepasse)) {
         echo json_encode(['success' => false, 'message' => 'Login et mot de passe requis']);
         return;
     }
-
-    $user = $this->User_model->get_user_by_login($login);
-
-    if (!$user || $user['MOTDEPASSE'] !== $motdepasse) {
-        echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
-        return;
-    }
-
-    // Session avec rôle
-    $this->session->set_userdata([
-        'admin_loggedin' => true,
-        'login' => $user['LOGIN'],
-        'nom' => $user['NOM'],
-        'prenom' => $user['PRENOM'],
-        'role' => $user['ROLE'],  // Clé en minuscule pour la session
-        'email' => $user['EMAIL']
-    ]);
-
-    // REDIRECTION SELON LE RÔLE
-    $redirect_url = $this->get_redirect_url_by_role($user['ROLE']);
     
-    echo json_encode([
-        'success' => true, 
-        'message' => 'Connexion ' . $user['ROLE'] . ' réussie',
-        'redirect' => $redirect_url
-    ]);
-}
-*/
-
- /// avec plus de débogage ////
-public function login_admin_ajax() {
-    header('Content-Type: application/json');
-    
-    error_log("=== DÉBUT LOGIN ADMIN AJAX ===");
-
-    $inputJSON = file_get_contents("php://input");
-    $input = json_decode($inputJSON, true);
-    
-    error_log("Données reçues: " . print_r($input, true));
-
-    $login = isset($input['login']) ? trim($input['login']) : '';
-    $motdepasse = isset($input['motdepasse']) ? trim($input['motdepasse']) : '';
-
-    error_log("Login: " . $login);
-    error_log("Mot de passe: " . $motdepasse);
-
-    if (empty($login) || empty($motdepasse)) {
-        error_log("ERREUR: Champs vides");
-        echo json_encode(['success' => false, 'message' => 'Login et mot de passe requis']);
-        return;
+    // Charger le User_model si pas déjà fait
+    if (!isset($this->User_model)) {
+        $this->load->model('User_model');
     }
 
     $user = $this->User_model->get_user_by_login($login);
-    error_log("Utilisateur trouvé: " . print_r($user, true));
 
     if (!$user) {
-        error_log("ERREUR: Utilisateur non trouvé");
+        //error_log("Utilisateur non trouvé: " . $login);
         echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
         return;
     }
 
+    // Vérification mot de passe
     if ($user['MOTDEPASSE'] !== $motdepasse) {
-        error_log("ERREUR: Mot de passe incorrect");
-        error_log("Attendu: " . $user['MOTDEPASSE'] . " - Reçu: " . $motdepasse);
+        //error_log("Mot de passe incorrect pour: " . $login);
         echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
         return;
     }
-
-    error_log("Connexion réussie pour: " . $user['LOGIN'] . " - Rôle: " . $user['ROLE']);
-
-    // Session
+    
+    // Connexion réussie
+    //error_log("Connexion réussie pour: " . $login);
+    
     $this->session->set_userdata([
         'admin_loggedin' => true,
-        'login' => $user['LOGIN'],
-        'nom' => $user['NOM'],
-        'prenom' => $user['PRENOM'],
-        'role' => $user['ROLE'],
-        'email' => $user['EMAIL']
+        'login'          => $user['LOGIN'],
+        'nom'            => $user['NOM'],
+        'prenom'         => $user['PRENOM'],
+        'role'           => $user['ROLE'],
+        'email'          => $user['EMAIL']
     ]);
-
-    // Déterminer la redirection
-    $redirect_url = $this->get_redirect_url_by_role($user['ROLE']);
-    error_log("URL de redirection: " . $redirect_url);
 
     echo json_encode([
         'success' => true, 
-        'message' => 'Connexion ' . $user['ROLE'] . ' réussie',
-        'redirect' => $redirect_url
+        'message' => 'Connexion admin réussie',
+        'redirect' => base_url('dashboard_admin')
     ]);
-    
-    error_log("=== FIN LOGIN ADMIN AJAX ===");
 }
 
-private function get_redirect_url_by_role($role) {
-    switch ($role) {
-        case 'SUPER_ADMIN':
-        case 'ADMIN':
-            return base_url('dashboard_admin');
-        case 'GUICHET':
-            return base_url('dashboard_guichet');
-        default:
-            return base_url('dashboard_admin');
-    }
-}
-
-
-
-/**
- * Déterminer l'URL de redirection selon le rôle
- */
-/*
-private function get_redirect_url_by_role($role) {
-    switch ($role) {
-        case 'SUPER_ADMIN':
-            return base_url('dashboard_admin');  // Même dashboard que ADMIN pour l'instant
-        case 'ADMIN':
-            return base_url('dashboard_admin');
-        case 'GUICHET':
-            return base_url('dashboard_guichet');  // À créer
-        default:
-            return base_url('dashboard_admin');
-    }
-}
-*/
     // Déconnexion (étudiant ou admin)
     public function logout() {
         $this->session->sess_destroy();

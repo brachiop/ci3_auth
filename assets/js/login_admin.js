@@ -21,12 +21,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(res => res.json())
         .then(data => {
+            console.log('Réponse complète:', data);
+            console.log('URL de redirection:', data.redirect);
+            
             if (data.success) {
+                showMessage(data.message, 'success');
                 messageDiv.classList.remove('text-danger');
                 messageDiv.classList.add('text-success');
                 messageDiv.textContent = data.message;
-                setTimeout(() => { window.location.href = BASE_URL + 'dashboard_admin'; }, 1000);
+                setTimeout(() => { 
+                    console.log('Navigation vers:', data.redirect);
+                    window.location.href = BASE_URL + 'dashboard_admin'; }, 1000);
             } else {
+                showMessage(data.message, 'error');
                 messageDiv.classList.remove('text-success');
                 messageDiv.classList.add('text-danger');
                 messageDiv.textContent = data.message;

@@ -84,4 +84,13 @@ public function get_user_by_login($login) {
         // Ici tu peux créer une table CONNECTES_USERS si nécessaire
     }
 
+    /**
+     * Récupérer tous les utilisateurs
+     */
+    public function get_all_users() {
+        $this->db->order_by('NOM, PRENOM');
+        $query = $this->db->get('users');
+        return $query->result_array();
+    }
+
 }

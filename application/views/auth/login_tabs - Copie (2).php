@@ -326,15 +326,22 @@ console.log('Données envoyées:', { login: login, motdepasse: motdepasse });
     console.log('Réponse complète du serveur:', data);
     
     if (data.success) {
-        console.log('SUCCÈS - Redirection immédiate vers:', data.redirect);
+        console.log('SUCCÈS - Redirection vers:', data.redirect);
         showMessage(data.message, 'success', messageDiv);
         
-        // Redirection immédiate
-        window.location.href = data.redirect;
+        // FORCER la redirection après 1 seconde
+        setTimeout(() => { 
+            console.log('Exécution de la redirection vers:', data.redirect);
+            window.location.href = data.redirect; 
+        }, 1000);
     } else {
         console.log('ERREUR:', data.message);
         showMessage(data.message, 'error', messageDiv);
     }
+})
+.catch(err => {
+    console.error('Erreur fetch complète:', err);
+    showMessage('Erreur de connexion au serveur: ' + err.message, 'error', messageDiv);
 })
             
             

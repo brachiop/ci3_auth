@@ -11,43 +11,25 @@
                 <span class="full-title">Menu Principal</span>
                 <span class="short-title">Menu</span>
             </li>
-            
-    <!-- Menu selon le rôle -->
-    <?php if ($this->session->userdata('admin_loggedin')): ?>
-            
-                <!-- Dashboard selon le rôle -->
             <li class="nav-item menu-items">
                 <a class="nav-link" href="<?= 
-                    $this->session->userdata('role') == 'GUICHET' ? site_url('dashboard_guichet') : site_url('dashboard_admin') ?>">
+                    $this->session->userdata('admin_loggedin') ? site_url('dashboard_admin') : site_url('dashboard')?>">
                     <span class="menu-icon">
                         <i class="mdi mdi-speedometer menu-icon"></i>
                     </span>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
-            
- 
-             <!-- Menu Gestion des Étudiants (ADMIN et SUPER_ADMIN seulement) -->
-            <?php if (in_array($this->session->userdata('role'), ['SUPER_ADMIN', 'ADMIN'])): ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
-                    <i class="mdi mdi-account-multiple menu-icon"></i>
-                    <span class="menu-title">Gestion des Étudiants</span>
-                </a>
-            </li>
-            <?php endif; ?>
 
-            <!-- Menu Gestion des Utilisateurs (SUPER_ADMIN seulement) -->
-            <?php if ($this->session->userdata('role') == 'SUPER_ADMIN'): ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= site_url('utilisateurs_admin') ?>">
-                    <i class="mdi mdi-account-settings menu-icon"></i>
-                    <span class="menu-title">Gestion des Utilisateurs</span>
-                </a>
-            </li>
-            <?php endif; ?>        
-
-    <?php endif; ?>
+        <!-- Menu Admin (seulement si admin connecté) -->
+        <?php if ($this->session->userdata('admin_loggedin')): ?>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+                <span class="menu-title">Gestion des Étudiants</span>
+            </a>
+        </li>
+        <?php endif; ?>
 
             <!-- Mes Infos -->
             <li class="nav-item menu-items">

@@ -97,3 +97,11 @@ $route['etudiants_admin/index/(:num)'] = 'etudiants_admin/index/$1';
 $route['etudiants_admin/voir/(:num)'] = 'etudiants_admin/voir/$1';
 
 $route['etudiants_admin/voir/(:num)'] = 'etudiants_admin/voir/$1';
+
+// Routes pour le guichet
+$route['dashboard_guichet'] = 'dashboard_guichet/index';
+
+// Routes pour la gestion des utilisateurs (SUPER_ADMIN)
+$route['utilisateurs_admin'] = 'utilisateurs_admin/index';
+$route['utilisateurs_admin/creer'] = 'utilisateurs_admin/creer';
+$route['utilisateurs_admin/modifier/(:num)'] = 'utilisateurs_admin/modifier/$1';
