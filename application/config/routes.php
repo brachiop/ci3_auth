@@ -105,3 +105,11 @@ $route['dashboard_guichet'] = 'dashboard_guichet/index';
 $route['utilisateurs_admin'] = 'utilisateurs_admin/index';
 $route['utilisateurs_admin/creer'] = 'utilisateurs_admin/creer';
 $route['utilisateurs_admin/modifier/(:num)'] = 'utilisateurs_admin/modifier/$1';
+
+// Routes pour la gestion des utilisateurs
+$route['utilisateurs_admin'] = 'utilisateurs_admin/index';
+$route['utilisateurs_admin/index'] = 'utilisateurs_admin/index';
+$route['utilisateurs_admin/index/(:num)'] = 'utilisateurs_admin/index/$1';
+$route['utilisateurs_admin/creer'] = 'utilisateurs_admin/creer';
+$route['utilisateurs_admin/modifier/(:num)'] = 'utilisateurs_admin/modifier/$1';
+$route['utilisateurs_admin/changer_statut/(:num)'] = 'utilisateurs_admin/changer_statut/$1';

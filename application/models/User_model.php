@@ -87,10 +87,53 @@ public function get_user_by_login($login) {
     /**
      * Récupérer tous les utilisateurs
      */
+/*
     public function get_all_users() {
         $this->db->order_by('NOM, PRENOM');
         $query = $this->db->get('users');
         return $query->result_array();
     }
+*/
+    /**
+     * Récupérer tous les utilisateurs
+     */
+    public function count_utilisateurs() {
+        $this->db->order_by('NOM, PRENOM');
+        $query = $this->db->get('users');
+        return $query->result_array();
+    }
+
+/**
+ * Récupérer tous les utilisateurs avec pagination
+ */
+public function get_utilisateurs_pagines($limit, $offset) {
+    $this->db->order_by('NOM, PRENOM');
+    $this->db->limit($limit, $offset);
+    $query = $this->db->get('users');
+    return $query->result_array();
+}
+
+/**
+ * Obtenir les statistiques des utilisateurs
+ */
+public function get_stats_utilisateurs() {
+    $total = $this->db->count_all('users');
+    
+    $this->db->where('STATUT', 'ACTIF');
+    $actifs = $this->db->count_all_results('users');
+    
+    $this->db->where('ROLE', 'SUPER_ADMIN');
+    $super_admins = $this->db->count_all_results('users');
+    
+    $this->db->where('ROLE', 'GUICHET');
+    $guichets = $this->db->count_all_results('users');
+    
+    return [
+        'total_utilisateurs' => $total,
+        'utilisateurs_actifs' => $actifs,
+        'super_admins' => $super_admins,
+        'guichets' => $guichets
+    ];
+}
 
 }
