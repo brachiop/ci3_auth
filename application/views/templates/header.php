@@ -16,4 +16,3 @@
   <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
 </head>
 <body>
-
