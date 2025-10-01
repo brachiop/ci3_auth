@@ -31,24 +31,34 @@
  
              <!-- Menu Gestion des Étudiants (ADMIN et SUPER_ADMIN seulement) -->
             <?php if (in_array($this->session->userdata('role'), ['SUPER_ADMIN', 'ADMIN'])): ?>
-            <li class="nav-item">
+            <li class="nav-item menu-items">
                 <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
-                    <i class="mdi mdi-account-multiple menu-icon"></i>
+                    <span class="menu-icon"><i class="mdi mdi-account-multiple"></i></span>
                     <span class="menu-title">Gestion des Étudiants</span>
                 </a>
             </li>
             <?php endif; ?>
 
             <!-- Menu Gestion des Utilisateurs (SUPER_ADMIN seulement) -->
-            <?php if ($this->session->userdata('role') == 'SUPER_ADMIN'): ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= site_url('utilisateurs_admin') ?>">
-                    <i class="mdi mdi-account-settings menu-icon"></i>
-                    <span class="menu-title">Gestion des Utilisateurs</span>
-                </a>
-            </li>
-            <?php endif; ?>        
 
+            <?php if ($this->session->userdata('role') === 'SUPER_ADMIN'): ?>
+            
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('admin/utilisateurs') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-account-settings"></i></span>
+                        <span class="menu-title"> Gestion des Utilisateurs</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('admin/creer-utilisateur'); ?>">
+                        <span class="menu-icon"><i class="mdi mdi-account-plus"></i></span>
+                        <span class="menu-title"> Créer Utilisateur</span>
+                    </a>
+                </li>
+            <?php endif; ?>    
+
+    
     <?php endif; ?>
 
             <!-- Mes Infos -->

@@ -66,27 +66,22 @@ public function creer() {
             'PERMISSIONS' => ''
         );
 
-        
         if ($this->User_model->creer_utilisateur($user_data)) {
-            
-            // MÉTHODE CORRECTE POUR LES MESSAGES FLASH
             $this->session->set_flashdata('success', 'Utilisateur créé avec succès !');
-            redirect('admin/utilisateurs');
-            return; // Important : arrêter l'exécution
+            redirect('admin/utilisateurs', 'refresh');
         } else {
-            // Message d'erreur pour le formulaire actuel
-            
-            $data['error'] = 'Erreur lors de la création de l\'utilisateur.';
-        }    
-        
+            $this->session->set_flashdata('error', 'Erreur lors de la création de l\'utilisateur.');
+        }
     }
 
     $data['title'] = 'Créer un nouvel utilisateur';
     $data['roles'] = ['SUPER_ADMIN', 'ADMIN', 'GUICHET', 'ETUDIANT'];
-    
-    $this->load->view('admin/creer_utilisateur', $data);
 
+    $this->load->view('admin/creer_utilisateur', $data);
 }
+
+
+
 
 
 

@@ -1,37 +1,18 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
+<!-- Header -->
 <?php $this->load->view('templates/header'); ?>
+
+<!-- Sidebar + container-scroller -->
 <?php $this->load->view('templates/sidebar'); ?>
+
+<!-- Navbar + page-body-wrapper -->
 <?php $this->load->view('templates/navbar'); ?>
 
 <!-- Main Panel -->
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="container-fluid">
-
-
-<!-- Messages flash pour la liste -->
-<!-- Messages avec Bootstrap 4 -->
-<?php if ($this->session->flashdata('success')): ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="mdi mdi-check-circle-outline me-2"></i>
-        <?php echo $this->session->flashdata('success'); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-<?php endif; ?>
-
-<?php if ($this->session->flashdata('error')): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="mdi mdi-alert-circle-outline me-2"></i>
-        <?php echo $this->session->flashdata('error'); ?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-<?php endif; ?>
-
             
             <!-- En-tête -->
             <div class="row">
@@ -87,7 +68,7 @@
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Liste des utilisateurs</h5>
-                        <a href="<?= site_url('admin/creer-utilisateur') ?>" class="btn btn-primary">
+                        <a href="<?= site_url('utilisateurs_admin/creer') ?>" class="btn btn-primary">
                             <i class="mdi mdi-account-plus me-2"></i>Nouvel utilisateur
                         </a>
                     </div>
@@ -137,17 +118,17 @@
                                                 <td><?= date('d/m/Y', strtotime($utilisateur['DATE_CREATION'])) ?></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="<?= site_url('admin/editer-utilisateur/' . $utilisateur['ID']) ?>" 
+                                                        <a href="<?= site_url('utilisateurs_admin/modifier/' . $utilisateur['ID']) ?>" 
                                                            class="btn btn-sm btn-warning" title="Modifier">
                                                             <i class="mdi mdi-pencil"></i>
                                                         </a>
                                                         <?php if ($utilisateur['STATUT'] == 'ACTIF'): ?>
-                                                            <a href="<?= site_url('admin/changer-statut/' . $utilisateur['ID']) ?>" 
+                                                            <a href="<?= site_url('utilisateurs_admin/changer_statut/' . $utilisateur['ID']) ?>" 
                                                                class="btn btn-sm btn-secondary" title="Désactiver">
                                                                 <i class="mdi mdi-account-off"></i>
                                                             </a>
                                                         <?php else: ?>
-                                                            <a href="<?= site_url('admin/changer-statut/' . $utilisateur['ID']) ?>" 
+                                                            <a href="<?= site_url('utilisateurs_admin/changer_statut/' . $utilisateur['ID']) ?>" 
                                                                class="btn btn-sm btn-success" title="Activer">
                                                                 <i class="mdi mdi-account-check"></i>
                                                             </a>
