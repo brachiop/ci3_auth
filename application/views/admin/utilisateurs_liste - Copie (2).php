@@ -107,10 +107,10 @@
                                                 <th>Login</th>
                                                 <th>Nom</th>
                                                 <th>Prénom</th>
-                                                <!-- <th>Email</th> -->
+                                                <th>Email</th>
                                                 <th>Rôle</th>
                                                 <th>Statut</th>
-                                                <!-- <th>Date création</th> -->
+                                                <th>Date création</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -120,7 +120,7 @@
                                                 <td><?= $utilisateur['LOGIN'] ?></td>
                                                 <td><?= $utilisateur['NOM'] ?></td>
                                                 <td><?= $utilisateur['PRENOM'] ?></td>
-                                                <!-- <td><?= $utilisateur['EMAIL'] ?: '<span class="text-muted">Non renseigné</span>' ?></td> -->
+                                                <td><?= $utilisateur['EMAIL'] ?: '<span class="text-muted">Non renseigné</span>' ?></td>
                                                 <td>
                                                     <span class="badge 
                                                         <?= $utilisateur['ROLE'] == 'SUPER_ADMIN' ? 'bg-danger' : 
@@ -135,51 +135,31 @@
                                                     </span>
                                                 </td>
                                                 
-                                                <!-- <td><?= date('d/m/Y', strtotime($utilisateur['DATE_CREATION'])) ?></td> -->
+                                                
+                                                <td><?= date('d/m/Y', strtotime($utilisateur['DATE_CREATION'])) ?></td>
                                                 
                                                 <td>
-                                                    <div class="btn-group btn-group-sm" role="group">
+                                                    <div class="btn-group">
                                                         <!-- Bouton Modifier -->
                                                         <a href="<?= site_url('admin/editer-utilisateur/' . $utilisateur['ID']) ?>" 
-                                                           class="btn btn-sm btn-warning" data-toggle="tooltip" title="Modifier">
+                                                           class="btn btn-sm btn-warning" title="Modifier">
                                                             <i class="mdi mdi-pencil"></i>
                                                         </a>
-                                                        
                                                         <!-- Bouton Activation/Désactivation -->
                                                         <?php if ($utilisateur['STATUT'] == 'ACTIF'): ?>
                                                             <a href="<?= site_url('admin/changer-statut/' . $utilisateur['ID']) ?>" 
-                                                               class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Désactiver"
+                                                               class="btn btn-sm btn-secondary" title="Désactiver"
                                                                onclick="return confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')">
                                                                 <i class="mdi mdi-account-off"></i>
                                                             </a>
                                                         <?php else: ?>
                                                         
                                                             <a href="<?= site_url('admin/changer-statut/' . $utilisateur['ID']) ?>" 
-                                                               class="btn btn-sm btn-success" data-toggle="tooltip" title="Activer"
+                                                               class="btn btn-sm btn-success" title="Activer"
                                                                onclick="return confirm('Êtes-vous sûr de vouloir activer cet utilisateur ?')">
                                                                 <i class="mdi mdi-account-check"></i>
                                                             </a>
                                                         <?php endif; ?>
-                                                        
-                                                              <!-- Supprimer -->
-                                                              <!-- 
-                                                              <a href="<?= site_url('admin/supprimer-utilisateur/' . $utilisateur['ID']) ?>" 
-                                                                 class="btn btn-danger" data-toggle="tooltip" title="Supprimer"
-                                                                 onclick="return confirm('Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ? Cette action est irréversible.')">
-                                                                  <i class="mdi mdi-delete"></i>
-                                                              </a>
-                                                                -->
-
-                                                                <!-- Bouton de Suppression -->
-                                                                <button type="button" 
-                                                                        class="btn btn-danger btn-sm btn-delete-modal" 
-                                                                        data-toggle="tooltip" 
-                                                                        title="Supprimer"
-                                                                        data-url="<?= site_url('admin/supprimer-utilisateur/' . $utilisateur['ID']) ?>">
-                                                                    <i class="mdi mdi-delete"></i>
-                                                                </button>
-
-                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -211,72 +191,6 @@
 
         </div>
     </div>
-    
-<script>
-    // Activation des tooltips Bootstrap - Version JavaScript vanilla
-    document.addEventListener('DOMContentLoaded', function() {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-    });
-</script>
-
-
-<!-- Ajoutez cette modal en bas de la page, avant le footer -->
-<!-- Modal de suppression - Simple et visible -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-dark text-white">
-            <div class="modal-header bg-warning text-dark">
-                <h5 class="modal-title font-weight-bold" id="deleteModalLabel">
-                    <i class="mdi mdi-alert me-2"></i>Confirmation requise
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                <p class="text-white mb-3">
-                    Êtes-vous sûr de vouloir supprimer définitivement cet utilisateur ?
-                </p>
-                <div class="alert alert-warning text-dark">
-                    <i class="mdi mdi-alert me-2"></i>
-                    <strong>Cette action ne peut pas être annulée.</strong>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                <a href="#" id="confirmDelete" class="btn btn-danger">Confirmer la suppression</a>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-// Version JavaScript vanilla (sans jQuery)
-document.addEventListener('DOMContentLoaded', function() {
-    var deleteUrl = '';
-    
-    // Gestion des boutons de suppression
-    var deleteButtons = document.querySelectorAll('.btn-delete-modal');
-    deleteButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            deleteUrl = this.getAttribute('data-url');
-            var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            modal.show();
-        });
-    });
-    
-    // Confirmation de suppression
-    document.getElementById('confirmDelete').addEventListener('click', function() {
-        window.location.href = deleteUrl;
-    });
-});
-</script>
-
 
     <!-- Footer + fermeture de toutes les balises -->
     <?php $this->load->view('templates/footer'); ?>

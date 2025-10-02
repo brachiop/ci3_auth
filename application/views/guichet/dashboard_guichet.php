@@ -22,10 +22,10 @@
                     <!-- Message de bienvenue -->
                     <div class="row mb-4">
                         <div class="col-12">
-                            <div class="card bg-light">
+                            <div class="card bg-warning">
                                 <div class="card-body">
                                     <h4 class="text-primary">Bienvenue, <?= $user['prenom'] ?> <?= $user['nom'] ?> !</h4>
-                                    <p class="mb-0">Vous êtes connecté en tant que <strong>Agent de Guichet</strong>.</p>
+                                    <!-- <p class="mb-0">Vous êtes connecté en tant que <strong>Opérateur de Guichet</strong>.</p> -->
                                 </div>
                             </div>
                         </div>

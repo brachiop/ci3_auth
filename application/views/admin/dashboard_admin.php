@@ -17,30 +17,32 @@
                 <!-- Cartes de statistiques - CONTENU CENTRÉ -->
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card bg-primary text-white h-100">
-                            <div class="card-body text-center">  <!-- Ajout de text-center -->
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center p-2">  <!-- Ajout de text-center -->
                                 <div class="d-flex flex-column align-items-center">  <!-- Centrage vertical -->
-                                    <div class="mb-3">  <!-- Marge en bas pour l'icône -->
-                                        <i class="fas fa-users fa-3x"></i>  <!-- Icône agrandie -->
+                                    <div class="mb-1">  <!-- Marge en bas pour l'icône -->
+                                        <i class="mdi mdi-account-group" style="font-size: 1.5rem;"></i>
                                     </div>
                                     <div>
-                                        <h2 class="mb-1"><?= $stats['total_etudiants'] ?></h2>  <!-- Taille augmentée -->
+                                        <h4 class="mb-1"><?= $stats['total_etudiants'] ?></h4>  <!-- Taille augmentée -->
                                         <p class="mb-0">Étudiants total</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                     
                     <div class="col-md-4">
-                        <div class="card bg-success text-white h-100">
-                            <div class="card-body text-center">  <!-- Ajout de text-center -->
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center p-2">  <!-- Ajout de text-center -->
                                 <div class="d-flex flex-column align-items-center">  <!-- Centrage vertical -->
-                                    <div class="mb-3">  <!-- Marge en bas pour l'icône -->
-                                        <i class="fas fa-user-check fa-3x"></i>  <!-- Icône agrandie -->
+                                    <div class="mb-1">  <!-- Marge en bas pour l'icône -->
+                                        <i class="mdi mdi-account-check" style="font-size: 1.5rem;"></i>
                                     </div>
                                     <div>
-                                        <h2 class="mb-1"><?= $stats['connectes_aujourdhui'] ?></h2>  <!-- Taille augmentée -->
+                                        <h4 class="mb-1"><?= $stats['connectes_aujourdhui'] ?></h4>  <!-- Taille augmentée -->
                                         <p class="mb-0">Connectés aujourd'hui</p>
                                     </div>
                                 </div>
@@ -49,11 +51,11 @@
                     </div>
                     
                     <div class="col-md-4">
-                        <div class="card bg-info text-white h-100">
-                            <div class="card-body text-center">  <!-- Ajout de text-center -->
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center p-2">  <!-- Ajout de text-center -->
                                 <div class="d-flex flex-column align-items-center">  <!-- Centrage vertical -->
-                                    <div class="mb-3">  <!-- Marge en bas pour l'icône -->
-                                        <i class="fas fa-user-shield fa-3x"></i>  <!-- Icône agrandie -->
+                                    <div class="mb-1">  <!-- Marge en bas pour l'icône -->
+                                        <i class="mdi mdi-shield-account" style="font-size: 1.5rem;"></i>
                                     </div>
                                     <div>
                                         <h4 class="mb-1">Admin</h4>  <!-- Taille adaptée -->
@@ -71,7 +73,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">
-                                    <i class="fas fa-clock me-2"></i>Dernières connexions
+                                    <i class="mdi mdi-clock me-2"></i>&nbsp;&nbsp;&nbsp;Dernières connexions
                                 </h5>
                             </div>
                             <div class="card-body">

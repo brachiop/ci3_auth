@@ -147,4 +147,32 @@ public function creer_utilisateur($data) {
     // Insertion dans la base
     return $this->db->insert('users', $data);
 }
+
+
+/**
+ * Récupérer un utilisateur par son ID
+ */
+public function get_user_by_id($user_id) {
+    $this->db->where('ID', $user_id);
+    $query = $this->db->get('users');
+    return $query->row();   // row() retourne un objet
+}
+
+/**
+ * Mettre à jour un utilisateur
+ */
+public function update_user($user_id, $data) {
+    $this->db->where('ID', $user_id);
+    return $this->db->update('users', $data);
+}
+
+/**
+ * Supprimer un utilisateur
+ */
+public function delete_user($user_id) {
+    $this->db->where('ID', $user_id);
+    return $this->db->delete('users');
+}
+
+
 }
