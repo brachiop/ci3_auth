@@ -73,4 +73,9 @@ $route['admin/changer-statut/(:num)'] = 'utilisateurs_admin/changer_statut/$1';
 // Import CSV
 $route['import/filieres'] = 'import/filieres';
 $route['import/download_template_filieres'] = 'import/download_template_filieres';
+$route['import/parcours'] = 'import/parcours';
+$route['import/modules'] = 'import/modules';
 
+// dashboard admin
+//$route['admin/dashboard'] = 'admin/dashboard';
+//$route['admin'] = 'admin/dashboard'; // Page par défaut admin

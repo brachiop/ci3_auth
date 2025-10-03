@@ -33,15 +33,7 @@ class Dashboard_admin extends CI_Controller {
         $data['admin'] = $user;
         $data['title'] = "Tableau de bord Admin";
 
-    // Vous pouvez ajouter des données pour les statistiques
-    $this->load->model('User_model'); // Si vous voulez des stats utilisateurs
-    
-    $data['total_utilisateurs'] = $this->User_model->count_utilisateurs();
-    $data['total_filieres'] = $this->db->count_all('filieres');
-    // etc.
-    
-    $this->load->view('admin/dashboard_admin', $data); 
-        
+        $this->load->view('admin/dashboard_admin', $data);
     }
 
     /**

@@ -57,6 +57,39 @@
                     </a>
                 </li>
             <?php endif; ?>    
+                                        <!-- MENU DÉROULANT IMPORT -->
+                <li class="nav-item nav-category">Importation</li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#import-menu" aria-expanded="false" aria-controls="import-menu">
+                        <i class="mdi mdi-upload menu-icon"></i>
+                        <span class="menu-title">Import Données</span>
+                        <i class="menu-arrow"></i>
+                    </a>                                        <!-- Import Filières -->
+                    <div class="collapse" id="import-menu">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo site_url('import/filieres'); ?>">
+                                    <i class="mdi mdi-domain me-2"></i> Filières
+                                </a>
+                            </li>                               <!-- Import Parcours -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo site_url('import/parcours'); ?>">
+                                    <i class="mdi mdi-map-marker-path me-2"></i> Parcours
+                                </a>
+                            </li>                               <!-- Import Modules -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo site_url('import/modules'); ?>">
+                                    <i class="mdi mdi-book-multiple me-2"></i> Modules
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo site_url('import/etudiants'); ?>">
+                                    <i class="mdi mdi-account-group me-2"></i> Étudiants
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
     
     <?php endif; ?>

@@ -1,8 +1,8 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <?php $this->load->view('templates/header'); ?>
-    <?php $this->load->view('templates/sidebar'); ?>
-        <?php $this->load->view('templates/navbar'); ?>
+<?php $this->load->view('templates/sidebar'); ?>
+<?php $this->load->view('templates/navbar'); ?>
 
         <div class="main-panel">
             <div class="content-wrapper">
@@ -10,7 +10,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="h3 mb-4"><?= $title ?></h1>
+                        <h1 class="h3 mb-4"><i class="mdi mdi-view-dashboard me-2"></i>&nbsp;&nbsp;&nbsp;<?= $title ?></h1>
                     </div>
                 </div>
 
@@ -31,9 +31,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    
                     <div class="col-md-4">
                         <div class="card bg-success text-white">
                             <div class="card-body text-center p-2">  <!-- Ajout de text-center -->
@@ -49,7 +46,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="col-md-4">
                         <div class="card bg-info text-white">
                             <div class="card-body text-center p-2">  <!-- Ajout de text-center -->
@@ -67,82 +63,98 @@
                     </div>
                 </div>
 
-                <!-- Dernières connexions -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">
-                                    <i class="mdi mdi-clock me-2"></i>&nbsp;&nbsp;&nbsp;Dernières connexions
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <?php if (!empty($stats['dernieres_connexions'])): ?>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Étudiant</th>
-                                                    <th>Date</th>
-                                                    <th>Heure</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($stats['dernieres_connexions'] as $connexion): ?>
-                                                <tr>
-                                                    <td><?= $connexion['NOM'] ?> <?= $connexion['PRENOM'] ?></td>
-                                                    <td><?= date('d/m/Y', strtotime($connexion['DATE'])) ?></td>
-                                                    <td><?= $connexion['HEURE'] ?></td>
-                                                </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                <?php else: ?>
-                                    <p class="text-muted">Aucune connexion récente</p>
-                                <?php endif; ?>
-                            </div>
+             <br />
+             
+             
+        <div class="row">
+
+            <!-- Carte Import Modules -->
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="<?php echo base_url('assets/images/dashboard/circle.svg'); ?>" class="card-img-absolute" alt="circle-image"/>
+                        <h4 class="font-weight-normal mb-3">Import Modules</h4>
+                        <p class="mb-4">Gérer les modules d'enseignement</p>
+                        <a href="<?php echo site_url('import/modules'); ?>" class="btn btn-light btn-sm">
+                            <i class="mdi mdi-upload me-1"></i>Accéder
+                        </a>
+                    </div>
+                </div>
+            </div>
+                        
+            <!-- Carte Import Parcours -->
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="<?php echo base_url('assets/images/dashboard/circle.svg'); ?>" class="card-img-absolute" alt="circle-image"/>
+                        <h4 class="font-weight-normal mb-3">Import Parcours</h4>
+                        <p class="mb-4">Gérer les parcours pédagogiques</p>
+                        <a href="<?php echo site_url('import/parcours'); ?>" class="btn btn-light btn-sm">
+                            <i class="mdi mdi-upload me-1"></i>Accéder
+                        </a>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Carte Import Filières -->
+            <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-primary card-img-holder text-white">
+                    <div class="card-body">
+                        <img src="<?php echo base_url('assets/images/dashboard/circle.svg'); ?>" class="card-img-absolute" alt="circle-image"/>
+                        <h4 class="font-weight-normal mb-3">Import Filières</h4>
+                        <p class="mb-4">Gérer les filières académiques</p>
+                        <a href="<?php echo site_url('import/filieres'); ?>" class="btn btn-light btn-sm">
+                            <i class="mdi mdi-upload me-1"></i>Accéder
+                        </a>
+                    </div>
+                </div>
+            </div>
+                        
+        </div>
+        
+        <!-- Section Gestion Utilisateurs -->
+        <div class="row">
+            <div class="col-12 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Gestion utilisateurs</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th> Action </th>
+                                        <th> Description </th>
+                                        <th> Lien </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> Liste Utilisateurs </td>
+                                        <td> Voir et gérer tous les utilisateurs </td>
+                                        <td>
+                                            <a href="<?php echo site_url('admin/utilisateurs'); ?>" class="btn btn-primary btn-sm">
+                                                <i class="mdi mdi-account-multiple"></i> Accéder
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Créer Utilisateur </td>
+                                        <td> Ajouter un nouvel utilisateur </td>
+                                        <td>
+                                            <a href="<?php echo site_url('admin/creer-utilisateur'); ?>" class="btn btn-success btn-sm">
+                                                <i class="mdi mdi-account-plus"></i> Accéder
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-
-
-
-                <div class="row">
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Informations Administrateur</h4>
-                                <?php if (!empty($admin) && is_array($admin)): ?>
-                                    <p><span class="label">Nom : </span><span class="value"><?= htmlspecialchars($admin['NOM']) ?></span></p>
-                                    <p><span class="label">Prénom : </span><span class="value"><?= htmlspecialchars($admin['PRENOM']) ?></span></p>
-                                    <p><span class="label">Login : </span><span class="value"><?= htmlspecialchars($admin['LOGIN']) ?></span></p>
-                                    <p><span class="label">Email : </span><span class="value"><?= htmlspecialchars($admin['EMAIL']) ?></span></p>
-                                    <p><span class="label">Rôle : </span><span class="value"><?= htmlspecialchars($admin['ROLE']) ?></span></p>
-                                <?php else: ?>
-                                    <p>Aucune information disponible.</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Autres blocs, par exemple statistiques ou résumé rapide -->
-                    <div class="col-md-6 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Résumé rapide</h4>
-                                <ul>
-                                    <li><a href="<?= site_url('admin/users') ?>">Gérer les utilisateurs</a></li>
-                                    <li><a href="<?= site_url('admin/etudiants') ?>">ETUDIANTS</a></li>
-                                    <li><a href="<?= site_url('admin/inscription') ?>">Inscriptions</a></li>
-                                    <li><a href="<?= site_url('admin/examens') ?>">Examens</a></li>
-                                    <li><a href="<?= site_url('admin/lois') ?>">Lois & réglementation</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            </div>
+        </div>
+             
+                
             </div> <!-- content-wrapper -->
 
             <?php $this->load->view('templates/footer'); ?>
