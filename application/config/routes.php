@@ -69,3 +69,8 @@ $route['admin/creer-utilisateur'] = 'utilisateurs_admin/creer';
 $route['admin/editer-utilisateur/(:num)'] = 'utilisateurs_admin/editer/$1';
 $route['admin/supprimer-utilisateur/(:num)'] = 'utilisateurs_admin/supprimer/$1';
 $route['admin/changer-statut/(:num)'] = 'utilisateurs_admin/changer_statut/$1';
+
+// Import CSV
+$route['import/filieres'] = 'import/filieres';
+$route['import/download_template_filieres'] = 'import/download_template_filieres';
+
