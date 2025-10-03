@@ -27,17 +27,7 @@
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
-            
- 
-             <!-- Menu Gestion des Étudiants (ADMIN et SUPER_ADMIN seulement) -->
-            <?php if (in_array($this->session->userdata('role'), ['SUPER_ADMIN', 'ADMIN'])): ?>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
-                    <span class="menu-icon"><i class="mdi mdi-account-multiple"></i></span>
-                    <span class="menu-title">Gestion des Étudiants</span>
-                </a>
-            </li>
-            <?php endif; ?>
+    <?php endif; ?>
 
             <!-- Menu Gestion des Utilisateurs (SUPER_ADMIN seulement) -->
 
@@ -56,10 +46,21 @@
                         <span class="menu-title"> Créer Utilisateur</span>
                     </a>
                 </li>
-            <?php endif; ?>    
-                                        <!-- MENU DÉROULANT IMPORT -->
+            <?php endif; ?> 
+            
+                            <!-- MENUS UNIQUEMENT POUR SUPER_ADMIN ET ADMIN -->
+            
+                                        <!-- Menu Gestion des Étudiants -->
+            <?php if (in_array($this->session->userdata('role'), ['SUPER_ADMIN', 'ADMIN'])): ?>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('etudiants_admin') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-account-multiple"></i></span>
+                        <span class="menu-title">Gestion des Étudiants</span>
+                    </a>
+                </li>            
+                                                    <!-- Importation des Données  -->
                 <li class="nav-item nav-category">Importation</li>
-                <li class="nav-item">
+                <li class="nav-item menu-items">
                     <a class="nav-link" data-toggle="collapse" href="#import-menu" aria-expanded="false" aria-controls="import-menu">
                         <i class="mdi mdi-upload menu-icon"></i>
                         <span class="menu-title">Import Données</span>
@@ -67,32 +68,61 @@
                     </a>                                        <!-- Import Filières -->
                     <div class="collapse" id="import-menu">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('import/filieres'); ?>">
-                                    <i class="mdi mdi-domain me-2"></i> Filières
+                            <li class="nav-item menu-items">
+                                <a class="nav-link" href="<?= site_url('import/filieres') ?>">
+                                    <span class="menu-icon"><i class="mdi mdi-domain me-2"></i></span>
+                                    <span class="menu-title"> Filières</span>
                                 </a>
                             </li>                               <!-- Import Parcours -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('import/parcours'); ?>">
-                                    <i class="mdi mdi-map-marker-path me-2"></i> Parcours
+                            <li class="nav-item menu-items">
+                                <a class="nav-link" href="<?= site_url('import/parcours') ?>">
+                                    <span class="menu-icon"><i class="mdi mdi-map-marker-path me-2"></i></span>
+                                    <span class="menu-title"> Parcours</span>
                                 </a>
                             </li>                               <!-- Import Modules -->
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('import/modules'); ?>">
-                                    <i class="mdi mdi-book-multiple me-2"></i> Modules
+                            <li class="nav-item menu-items">
+                                <a class="nav-link" href="<?= site_url('import/modules') ?>">
+                                    <span class="menu-icon"><i class="mdi mdi-book-multiple me-2"></i></span>
+                                    <span class="menu-title"> Modules</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo site_url('import/etudiants'); ?>">
-                                    <i class="mdi mdi-account-group me-2"></i> Étudiants
+                            <li class="nav-item menu-items">
+                                <a class="nav-link" href="<?= site_url('import/etudiants') ?>">
+                                    <span class="menu-icon"><i class="mdi mdi-account-group me-2"></i></span>
+                                    <span class="menu-title"> Étudiants</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-
-    
     <?php endif; ?>
+
+
+                <!-- MENU SPÉCIFIQUE POUR GUICHET -->
+        <?php if ($this->session->userdata('role') === 'GUICHET'): ?>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('guichet/certificat') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-account-group"></i></span>
+                        <span class="menu-title">Certificat Actuel</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('guichet/old_certificat') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-clipboard-account"></i></span>
+                        <span class="menu-title">Certificat Ancien</span>
+                    </a>
+                </li>
+                
+                 <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('guichet/historique') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-file-document"></i></span>
+                        <span class="menu-title">Historique</span>
+                    </a>
+                </li>
+                               
+
+        <?php endif; ?>
+
 
             <!-- Mes Infos -->
             <li class="nav-item menu-items">

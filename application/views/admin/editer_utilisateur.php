@@ -150,7 +150,7 @@
     </div>
 
     <div class="d-flex justify-content-end mt-4">
-        <a href="<?php echo site_url('admin/utilisateurs'); ?>" class="btn btn-secondary me-2">Annuler</a>
+        <a href="<?php echo site_url('utilisateurs_admin'); ?>" class="btn btn-secondary me-2">Annuler</a>
         <button type="submit" class="btn btn-primary">Modifier l'utilisateur</button>
     </div>
 </form>

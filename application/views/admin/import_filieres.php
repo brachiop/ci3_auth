@@ -64,7 +64,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="mdi mdi-upload me-2"></i>Importer les Filières
                                 </button>
-                                <a href="<?php echo site_url('admin/utilisateurs'); ?>" class="btn btn-secondary">
+                                <a href="<?php echo site_url('dashboard_admin'); ?>" class="btn btn-secondary">
                                     <i class="mdi mdi-arrow-left me-2"></i>Retour
                                 </a>
                                 
