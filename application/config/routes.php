@@ -71,10 +71,23 @@ $route['admin/supprimer-utilisateur/(:num)'] = 'utilisateurs_admin/supprimer/$1'
 $route['admin/changer-statut/(:num)'] = 'utilisateurs_admin/changer_statut/$1';
 
 // Import CSV
-$route['import/filieres'] = 'import/filieres';
-$route['import/download_template_filieres'] = 'import/download_template_filieres';
-$route['import/parcours'] = 'import/parcours';
-$route['import/modules'] = 'import/modules';
+// URL --> Controleur_méthode
+/*
+$route['import/filieres'] = 'import/import_filieres';
+$route['import/template_filieres'] = 'import/download_template_filieres';
+*/
+//$route['import/import_parcours'] = 'import/import_parcours';
+//$route['import/template_parcours'] = 'import/download_template_parcours';
+/*
+$route['import/parcours'] = 'import/import_parcours';
+$route['import/download_template_parcours'] = 'import/download_template_parcours';
+*/
+// Import des Tables CSV
+$route['import/(filieres|parcours|modules)'] = 'import/import/$1';
+// Export des templates des Tables CSV
+$route['download-template/(filieres|parcours|modules)'] = 'import/download_template/$1';
+
+//$route['import/modules'] = 'import/modules';
 
 // dashboard admin
 //$route['admin/dashboard'] = 'admin/dashboard';

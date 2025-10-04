@@ -15,12 +15,14 @@
             </li>
             
     <!-- Menu selon le rôle -->
-    <?php if ($this->session->userdata('admin_loggedin')): ?>
+    <?php if ($this->session->userdata('admin_loggedin') || $this->session->userdata('loggedin')): ?>
             
                 <!-- Dashboard selon le rôle -->
             <li class="nav-item menu-items">
-                <a class="nav-link" href="<?= 
-                    $this->session->userdata('role') == 'GUICHET' ? site_url('dashboard_guichet') : site_url('dashboard_admin') ?>">
+                <a class="nav-link" href="<?=
+                    $this->session->userdata('admin_loggedin') ? 
+                        ($this->session->userdata('role') == 'GUICHET' ? site_url('dashboard_guichet') : site_url('dashboard_admin')) 
+                    : site_url('dashboard') ?>">
                     <span class="menu-icon">
                         <i class="mdi mdi-speedometer menu-icon"></i>
                     </span>
@@ -58,11 +60,13 @@
                         <span class="menu-title">Gestion des Étudiants</span>
                     </a>
                 </li>            
+
                                                     <!-- Importation des Données  -->
-                <li class="nav-item nav-category">Importation</li>
+                <!-- <li class="nav-item nav-category">Importation</li> -->
                 <li class="nav-item menu-items">
                     <a class="nav-link" data-toggle="collapse" href="#import-menu" aria-expanded="false" aria-controls="import-menu">
-                        <i class="mdi mdi-upload menu-icon"></i>
+                    <span class="menu-icon"><i class="mdi mdi-upload menu-icon"></i></span>
+                        <!-- <i class="mdi mdi-upload menu-icon"></i> -->
                         <span class="menu-title">Import Données</span>
                         <i class="menu-arrow"></i>
                     </a>                                        <!-- Import Filières -->
