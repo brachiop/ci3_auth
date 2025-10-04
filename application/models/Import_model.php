@@ -133,6 +133,21 @@ class Import_model extends CI_Model {
           }
           
           return $headers;
-      }                           
+      } 
+      
+      public function vider_filieres()
+      {
+          return $this->db->empty_table('filieres');
+      }
+
+      public function vider_parcours()
+      {
+          return $this->db->empty_table('parcours');
+      }
+
+      public function vider_modules()
+      {
+          return $this->db->empty_table('modules');
+      }                          
 }
 ?>

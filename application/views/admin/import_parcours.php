@@ -15,7 +15,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-9 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         
@@ -59,6 +59,26 @@
                                     Formats acceptés : CSV (max 5MB)
                                 </small>
                             </div>
+                            
+                            <!-- Bouton Vider la table parcours-->
+                            <div class="form-group mt-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <label class="text-warning font-weight-bold">Vider la table</label>
+                                        <small class="form-text text-success">
+                                            Supprimer tous les enregistrements de la table parcours
+                                        </small>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <a href="<?php echo site_url('import/vider_parcours'); ?>" 
+                                           class="btn btn-warning" 
+                                           onclick="return confirm('Êtes-vous sûr de vouloir vider toute la table parcours ? Cette action est irréversible.')">
+                                            <i class="mdi mdi-delete-forever"></i> Vider la table
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>                            
+                            
                             <div class="mt-4">
                             <button type="submit" class="btn btn-primary">
                                 <i class="mdi mdi-upload me-2"></i> Importer Parcours

@@ -134,5 +134,58 @@ class Import extends CI_Controller {
             fclose($output);
             exit;
         }
+        
+        /* ==============  Vidage des tables ============== */
+        public function vider_filieres()
+        {
+            if (!$this->session->userdata('admin_loggedin')) {
+                redirect('auth/login');
+            }
+
+            //$this->load->model('Import_model');
+            
+            if ($this->Import_model->vider_filieres()) {
+                $this->session->set_flashdata('success', 'Table filières vidée avec succès!');
+            } else {
+                $this->session->set_flashdata('error', 'Erreur lors du vidage de la table filières');
+            }
+            
+            redirect('import/filieres');
+        }
+
+        public function vider_parcours()
+        {
+            if (!$this->session->userdata('admin_loggedin')) {
+                redirect('auth/login');
+            }
+
+            //$this->load->model('Import_model');
+            
+            if ($this->Import_model->vider_parcours()) {
+                $this->session->set_flashdata('success', 'Table parcours vidée avec succès!');
+            } else {
+                $this->session->set_flashdata('error', 'Erreur lors du vidage de la table parcours');
+            }
+            
+            redirect('import/parcours');
+        }
+
+        public function vider_modules()
+        {
+            if (!$this->session->userdata('admin_loggedin')) {
+                redirect('auth/login');
+            }
+
+            //$this->load->model('Import_model');
+            
+            if ($this->Import_model->vider_modules()) {
+                $this->session->set_flashdata('success', 'Table modules vidée avec succès!');
+            } else {
+                $this->session->set_flashdata('error', 'Erreur lors du vidage de la table modules');
+            }
+            
+            redirect('import/modules');
+        }
+        
 }
 ?>

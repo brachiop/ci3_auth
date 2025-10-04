@@ -61,6 +61,33 @@
                     </a>
                 </li>            
 
+  
+  
+  
+ <li class="nav-item menu-items">
+    <a class="nav-link" href="<?php echo site_url('admin/filieres'); ?>">
+        <span class="menu-icon"><i class="mdi mdi-school"></i></span>
+        <span class="menu-title">Filieres</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
+    <a class="nav-link" href="<?php echo site_url('admin/parcours'); ?>">
+        <span class="menu-icon"><i class="mdi mdi-book-multiple"></i></span>
+        <span class="menu-title">Parcours</span>
+    </a>
+</li>
+<li class="nav-item menu-items">
+    <a class="nav-link" href="<?php echo site_url('admin/modules'); ?>">
+        <span class="menu-icon"><i class="mdi mdi-book-open"></i></span>
+        <span class="menu-title">Modules</span>
+    </a>
+</li> 
+  
+  
+  
+  
+  
+  
                                                     <!-- Importation des Données  -->
                 <!-- <li class="nav-item nav-category">Importation</li> -->
                 <li class="nav-item menu-items">
