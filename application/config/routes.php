@@ -80,6 +80,10 @@ $route['admin/filieres'] = 'Pedago_admin/filieres';
 $route['admin/parcours'] = 'Pedago_admin/parcours';
 $route['admin/modules'] = 'Pedago_admin/modules';
 
+// inscription Etudiant
+$route['etudiant/inscription_actuelle'] = 'etudiant/modules_inscription';
+$route['etudiant/dashboard'] = 'etudiant/dashboard';
+
 
 
 // Import CSV

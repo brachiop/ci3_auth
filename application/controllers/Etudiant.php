@@ -36,5 +36,23 @@ class Etudiant extends CI_Controller {
           $this->load->view('etudiant/infos_scolaires', $data);
       }
 
+public function modules_inscription()
+{
+    if (!$this->session->userdata('loggedin')) {
+        redirect('auth/login');
+    }
+
+    $data['page_title'] = 'État d\'Inscription';
+    $data['active_menu'] = 'modules_inscription';
+    
+    // Récupérer le CNE de l'étudiant connecté depuis la session
+    $cne = $this->session->userdata('cne');
+    
+    $this->load->model('Etudiant_model');
+    $data['infos_etudiant'] = $this->Etudiant_model->get_infos_etudiant_complet($cne);
+    
+    $this->load->view('etudiant/modules_inscription', $data);
+}
+
 }
 
