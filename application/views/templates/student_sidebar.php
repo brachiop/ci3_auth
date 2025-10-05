@@ -67,7 +67,7 @@
                 <div class="collapse" id="inscription">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"><a class="nav-link" href="<?= site_url('inscription/reinscription') ?>">Réinscription</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('inscription/actuelle') ?>">Actuelle</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?= site_url('etudiant/inscription_actuelle') ?>">Actuelle</a></li>
                     </ul>
                 </div>
             </li>

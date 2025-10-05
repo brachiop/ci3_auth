@@ -126,6 +126,17 @@
                         </ul>
                     </div>
                 </li>
+                
+                
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('parametrage') ?>">
+                        <span class="menu-icon"><i class="mdi mdi-cog"></i></span>
+                        <span class="menu-title">Paramétrage</span>
+                    </a>
+                </li>
+                
+                
+                
     <?php endif; ?>
 
 

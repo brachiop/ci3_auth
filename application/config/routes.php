@@ -84,7 +84,9 @@ $route['admin/modules'] = 'Pedago_admin/modules';
 $route['etudiant/inscription_actuelle'] = 'etudiant/modules_inscription';
 $route['etudiant/dashboard'] = 'etudiant/dashboard';
 
-
+// Parametrage
+$route['parametrage'] = 'parametrage/index';
+$route['parametrage/sauvegarder'] = 'parametrage/sauvegarder';
 
 // Import CSV
 // URL --> Controleur_méthode
