@@ -2,11 +2,25 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Etudiant_model extends CI_Model {
-
+    
+    private $tbl_filieres;
+    private $tbl_parcours;
+    private $tbl_modules;
+    private $tbl_inscription;
+    private $nbr_modules;
+    
     public function __construct() {
         parent::__construct();
-        $this->load->database();
-    }
+                // Charger la configuration
+                $this->config->load('parametrage');        
+    
+          // Récupérer les noms de tables
+          $this->tbl_filieres = $this->config->item('tbl_filieres');
+          $this->tbl_parcours = $this->config->item('tbl_parcours');
+          $this->tbl_modules = $this->config->item('tbl_modules');
+          $this->tbl_inscription = $this->config->item('tbl_inscription');
+          $this->nbr_modules = $this->config->item('nbr_modules');
+          }
 
     // ===================== Gestion des ÉTUDIANTS =====================
 
@@ -183,7 +197,7 @@ class Etudiant_model extends CI_Model {
       {
           $this->db->where('CNE', $cne);
           $this->db->order_by('ANNEE_UNIV DESC, CODE_MOD');
-          $query = $this->db->get('inscription');
+          $query = $this->db->get($this->tbl_inscription);
           return $query->result_array();
       }         
 
@@ -200,21 +214,14 @@ class Etudiant_model extends CI_Model {
         return $query->result_array();
     }
 */
-    /**
-     * Récupérer les inscriptions d'un étudiant
-     */
-/*     
-    public function get_inscriptions_etudiant($cne) {
-        $this->db->where('CNE', $cne);
-        $query = $this->db->get('inscription');
-        return $query->result_array();
-    }
-*/
+
 
 public function get_infos_etudiant_complet($cne)
 {
+    
+    // Utiliser les variables dans les requêtes
     $this->db->where('CNE', $cne);
-    $query_inscription = $this->db->get('inscription');
+    $query_inscription = $this->db->get($this->tbl_inscription); 
     
     if ($query_inscription->num_rows() > 0) {
         $inscription_data = $query_inscription->row_array();
@@ -223,21 +230,21 @@ public function get_infos_etudiant_complet($cne)
         
         // Récupérer infos filière
         $this->db->where('CODE_FIL', $code_fil);
-        $filiere = $this->db->get('filieres')->row_array();
+        $filiere = $this->db->get($this->tbl_filieres)->row_array();
         
         // Récupérer infos parcours si différent
         $parcours = null;
         if ($code_parc != $code_fil) {
             $this->db->where('CODE_FIL', $code_fil);
             $this->db->where('CODE_PARC', $code_parc);
-            $parcours = $this->db->get('parcours')->row_array();
+            $parcours = $this->db->get($this->tbl_parcours)->row_array();
         }
         
         $modules_automne = array();
         $modules_printemps = array();
         
         // Parcourir les modules M1 à M42
-        for ($i = 1; $i <= 42; $i++) {
+        for ($i = 1; $i <= $this->nbr_modules; $i++) {
             $module_key = 'M' . $i;
             $ni_key = 'M' . $i . '_NI';
             
@@ -256,7 +263,7 @@ public function get_infos_etudiant_complet($cne)
                 
                 $this->db->where('SEMESTRE', $semestre);
                 $this->db->where('CODE_MAPG', 'M' . $i);
-                $query_module = $this->db->get('modules');
+                $query_module = $this->db->get($this->tbl_modules);
                 
                 $module_details = array(
                     'module_num' => 'M' . $i,

@@ -42,13 +42,7 @@ class User_model extends CI_Model {
         $query = $this->db->get_where('users', array('LOGIN' => $login));
         return $query->row_array(); // null si pas trouvé
     }
-/*
-public function get_user_by_login($login) {
-    $this->db->where('LOGIN', $login);
-    $query = $this->db->get('users');
-    return $query->row_array(); // Retourne null si pas trouvé
-}
-*/
+
     /**
      * Vérifier le mot de passe d'un user/admin
      */
@@ -173,22 +167,5 @@ public function delete_user($user_id) {
     return $this->db->delete('users');
 }
 
-/**
- * Import CSV
- */
-public function importer_filieres_csv($fichier_path) {
-    $this->load->library('csvreader');
-    
-    $result = $this->csvreader->parse_file($fichier_path);
-    
-    foreach ($result as $row) {
-        $data = array(
-            'CODE_FIL' => $row['CODE_FIL'],
-            'LIBEL_FIL' => $row['LIBEL_FIL'],
-            'TYPE' => $row['TYPE']
-        );
-        $this->db->insert('filieres', $data);
-    }
-}
 
 }

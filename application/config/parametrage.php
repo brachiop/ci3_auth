@@ -9,9 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['an_inscr'] = 2026;
 $config['tbl_inscription'] = "inscription";
-$config['tbl_modules'] = "modules24";
-$config['tbl_filieres'] = "filieres24";
-$config['tbl_parcours'] = "parc24";
+$config['tbl_modules'] = "modules";
+$config['tbl_filieres'] = "filieres";
+$config['tbl_parcours'] = "parcours";
 $config['tbl_Fetudg'] = "fetudg";
 $config['tbl_autorise'] = "autorise";
 $config['prefix_oletud'] = "oletud";

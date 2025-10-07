@@ -2,25 +2,36 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Import_model extends CI_Model {
+      
+            private $tbl_filieres;
+            private $tbl_parcours;
+            private $tbl_modules;
+                  
+      public function __construct() {
+          parent::__construct();
+              $this->config->load('parametrage');
+              $this->tbl_filieres = $this->config->item('tbl_filieres');
+              $this->tbl_parcours = $this->config->item('tbl_parcours');
+              $this->tbl_modules = $this->config->item('tbl_modules');
+      }
 
       public function importer_csv($fichier_path, $type) {
           $resultat = array('importes' => 0, 'erreurs' => 0, 'ignores' => 0, 'details_erreurs' => []);
-          
           $config = [
               'filieres' => [
-                  'table' => 'filieres',
+                  'table' => $this->tbl_filieres,
                   'champ_cle' => 'CODE_FIL',
                   'champs_requis' => ['CODE_FIL'],
                   'success_message' => 'filière(s) importée(s)'
               ],
               'parcours' => [
-                  'table' => 'parcours', 
+                  'table' => $this->tbl_parcours, 
                   'champ_cle' => 'CODE_PARC',
                   'champs_requis' => ['CODE_PARC'],
                   'success_message' => 'parcours importé(s)'
               ],
               'modules' => [
-                  'table' => 'modules', 
+                  'table' => $this->tbl_modules, 
                   'champ_cle' => 'CODE_MOD',
                   'champs_requis' => ['CODE_MOD'],
                   'success_message' => 'module(s) importé(s)'
@@ -119,7 +130,7 @@ class Import_model extends CI_Model {
       // Récuperer les entetes des tables pour les templates à télécharger
       public function get_table_headers($table_name) {
           // Validation pour éviter les injections SQL
-          $allowed_tables = ['filieres', 'parcours', 'modules']; // ← Ajoutez ici les nouvelles tables
+          $allowed_tables = [$this->tbl_filieres, $this->tbl_parcours, $this->tbl_modules]; // ← Ajoutez ici les nouvelles tables
           if (!in_array($table_name, $allowed_tables)) {
               return [];
           }
@@ -137,17 +148,17 @@ class Import_model extends CI_Model {
       
       public function vider_filieres()
       {
-          return $this->db->empty_table('filieres');
+          return $this->db->empty_table($this->tbl_filieres);
       }
 
       public function vider_parcours()
       {
-          return $this->db->empty_table('parcours');
+          return $this->db->empty_table($this->tbl_parcours);
       }
 
       public function vider_modules()
       {
-          return $this->db->empty_table('modules');
+          return $this->db->empty_table($this->tbl_modules);
       }                          
 }
 ?>

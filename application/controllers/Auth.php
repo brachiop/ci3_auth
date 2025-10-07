@@ -3,49 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
 
-    public function __construct() {
-        parent::__construct();
-        
-        // Activer l'affichage des erreurs (temporairement)
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-        
-        // CHARGER LES DEUX MODÈLES
-        $this->load->model('Etudiant_model');  // Pour étudiants
-        $this->load->model('User_model');      // Pour admins
-    
-        $this->load->library('session');
-        $this->load->helper(array('url', 'form', 'session_helper', 'data_helper'));
-    }
-
-    // Page de login étudiant
-
-/*    public function index() {
-        // Affiche la page de connexion étudiant
-        $this->load->view('auth/login');
-    }
-*/
-    // Page de login principal avec onglets
-    public function index() {
-        // Affiche la page de connexion avec onglets
-        $this->load->view('auth/login_tabs');
-    }
-
-    
-/*
-    public function admin() {
-        $this->load->view('auth/login_admin');
-    }
-
-        // Page de login admin
-      public function admin() {
-          $this->load->view('auth/login_admin'); // ou votre vue de connexion admin
+      public function __construct() {
+          parent::__construct();
+          
+          // Activer l'affichage des erreurs (temporairement)
+          error_reporting(E_ALL);
+          ini_set('display_errors', 1);
+          
+          // CHARGER LES DEUX MODÈLES
+          $this->load->model('Etudiant_model');  // Pour étudiants
+          $this->load->model('User_model');      // Pour admins
+      
+          $this->load->library('session');
+          $this->load->helper(array('url', 'form', 'session_helper', 'data_helper'));
       }
-*/  
-public function admin() {
-    // Rediriger vers la page de connexion principale qui a les onglets
-    redirect('auth/login_admin');
-}    
+
+
+      // Page de login principal avec onglets
+      public function index() {
+          // Affiche la page de connexion avec onglets
+          $this->load->view('auth/login_tabs');
+      }
+
+      public function admin() {
+          // Rediriger vers la page de connexion principale qui a les onglets
+          redirect('auth/login_admin');
+      }    
 
      // Traitement connexion étudiant via AJAX
       public function login_ajax() {
@@ -56,14 +39,10 @@ public function admin() {
           header('Content-Type: application/json');
 
           try {
-              // Log des données reçues
-              //error_log("=== TENTATIVE CONNEXION ÉTUDIANT ===");
               
               $inputJSON = file_get_contents("php://input");
-              //error_log("Données brutes reçues: " . $inputJSON);
               
               $input = json_decode($inputJSON, true);
-              //error_log("Données JSON décodées: " . print_r($input, true));
               
               // Vérifier si le JSON est valide
               if (json_last_error() !== JSON_ERROR_NONE) {
@@ -73,11 +52,7 @@ public function admin() {
               $identifiant = isset($input['identifiant']) ? trim($input['identifiant']) : '';
               $cin = isset($input['cin']) ? trim($input['cin']) : '';
 
-              //error_log("Identifiant: " . $identifiant);
-              //error_log("CIN: " . $cin);
-
               if (empty($identifiant) || empty($cin)) {
-                  //error_log("Champs vides détectés");
                   echo json_encode([
                       'success' => false,
                       'message' => 'CNE/Code Massar et CIN requis',
@@ -88,12 +63,9 @@ public function admin() {
 
 
               // Étape 1 : Vérification identifiant et CIN
-              //error_log("Recherche de l'étudiant avec identifiant: " . $identifiant);
               $etudiant = $this->Etudiant_model->get_etudiant_by_identifier($identifiant);
-              //error_log("Résultat recherche étudiant: " . print_r($etudiant, true));
 
               if (!$etudiant) {
-                  //error_log("Étudiant non trouvé");
                   echo json_encode([
                       'success' => false,
                       'message' => 'CNE/Massar ou CIN incorrect',
@@ -102,7 +74,6 @@ public function admin() {
                   return;
               }
               if (!$etudiant || $etudiant['CIN'] !== $cin) {
-                  //error_log("CIN incorrect. Attendu: " . $etudiant['CIN'] . ", Reçu: " . $cin);
                   echo json_encode([
                       'success' => false,
                       'message' => 'CNE/Massar ou CIN incorrect',
@@ -113,7 +84,6 @@ public function admin() {
 
 
               // Étape 2 : Vérification retrait définitif
-              //error_log("Vérification D_R_D: " . $etudiant['D_R_D']);
               if (!empty($etudiant['D_R_D'])) {
                   echo json_encode([
                       'success' => false,
@@ -124,9 +94,7 @@ public function admin() {
               }
 
               // Étape 3 : Vérification autorisation
-              //error_log("Vérification autorisation pour CNE: " . $etudiant['CNE']);
               $autorisation = $this->Etudiant_model->get_autorisation($etudiant['CNE']);
-              //error_log("Résultat autorisation: " . print_r($autorisation, true));
 
               if (!$autorisation) {
                   echo json_encode([
@@ -138,8 +106,6 @@ public function admin() {
               }
               
               // Connexion réussie
-              //error_log("Connexion réussie pour: " . $etudiant['CNE']);
-              
               $session_data = [
                   'loggedin' => true,
                   'cne' => $etudiant['CNE'],
@@ -155,8 +121,6 @@ public function admin() {
                   'code_fil' => $autorisation['CODE_FIL']
               ];
               
-              //error_log("Données session: " . print_r($session_data, true));
-              
               $this->session->set_userdata($session_data);
 
               // Enregistrer la connexion
@@ -169,7 +133,7 @@ public function admin() {
               ]);
 
           } catch (Exception $e) {
-              //error_log("ERREUR EXCEPTION: " . $e->getMessage());
+              
               echo json_encode([
                   'success' => false,
                   'message' => 'Erreur serveur: ' . $e->getMessage()
@@ -177,151 +141,68 @@ public function admin() {
           }
       }
 
+      public function login_admin_ajax() {
+          header('Content-Type: application/json');
+          
+          $inputJSON = file_get_contents("php://input");
+          $input = json_decode($inputJSON, true);
+          
+          $login = isset($input['login']) ? trim($input['login']) : '';
+          $motdepasse = isset($input['motdepasse']) ? trim($input['motdepasse']) : '';
 
+          if (empty($login) || empty($motdepasse)) {
+              echo json_encode(['success' => false, 'message' => 'Login et mot de passe requis']);
+              return;
+          }
 
-    // Traitement connexion Admin via AJAX
-/*
-public function login_admin_ajax() {
-    header('Content-Type: application/json');
+          $user = $this->User_model->get_user_by_login($login);
 
-    $inputJSON = file_get_contents("php://input");
-    $input = json_decode($inputJSON, true);
-    
-    $login = isset($input['login']) ? trim($input['login']) : '';
-    $motdepasse = isset($input['motdepasse']) ? trim($input['motdepasse']) : '';
+          if (!$user) {
+              echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
+              return;
+          }
 
-    if (empty($login) || empty($motdepasse)) {
-        echo json_encode(['success' => false, 'message' => 'Login et mot de passe requis']);
-        return;
-    }
+          if ($user['MOTDEPASSE'] !== $motdepasse) {
+              echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
+              return;
+          }
 
-    $user = $this->User_model->get_user_by_login($login);
+          // Session
+          $this->session->set_userdata([
+              'admin_loggedin' => true,
+              'login' => $user['LOGIN'],
+              'nom' => $user['NOM'],
+              'prenom' => $user['PRENOM'],
+              'role' => $user['ROLE'],
+              'email' => $user['EMAIL']
+          ]);
 
-    if (!$user || $user['MOTDEPASSE'] !== $motdepasse) {
-        echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
-        return;
-    }
+          // Déterminer la redirection
+          $redirect_url = $this->get_redirect_url_by_role($user['ROLE']);
 
-    // Session avec rôle
-    $this->session->set_userdata([
-        'admin_loggedin' => true,
-        'login' => $user['LOGIN'],
-        'nom' => $user['NOM'],
-        'prenom' => $user['PRENOM'],
-        'role' => $user['ROLE'],  // Clé en minuscule pour la session
-        'email' => $user['EMAIL']
-    ]);
+          echo json_encode([
+              'success' => true, 
+              'message' => 'Connexion ' . $user['ROLE'] . ' réussie',
+              'redirect' => $redirect_url
+          ]);
+          
+      }
 
-    // REDIRECTION SELON LE RÔLE
-    $redirect_url = $this->get_redirect_url_by_role($user['ROLE']);
-    
-    echo json_encode([
-        'success' => true, 
-        'message' => 'Connexion ' . $user['ROLE'] . ' réussie',
-        'redirect' => $redirect_url
-    ]);
-}
-*/
+      private function get_redirect_url_by_role($role) {
+          switch ($role) {
+              case 'SUPER_ADMIN':
+              case 'ADMIN':
+                  return base_url('dashboard_admin');
+              case 'GUICHET':
+                  return base_url('dashboard_guichet');
+              default:
+                  return base_url('dashboard_admin');
+          }
+      }
 
- /// avec plus de débogage ////
-public function login_admin_ajax() {
-    header('Content-Type: application/json');
-    
-    error_log("=== DÉBUT LOGIN ADMIN AJAX ===");
-
-    $inputJSON = file_get_contents("php://input");
-    $input = json_decode($inputJSON, true);
-    
-    error_log("Données reçues: " . print_r($input, true));
-
-    $login = isset($input['login']) ? trim($input['login']) : '';
-    $motdepasse = isset($input['motdepasse']) ? trim($input['motdepasse']) : '';
-
-    error_log("Login: " . $login);
-    error_log("Mot de passe: " . $motdepasse);
-
-    if (empty($login) || empty($motdepasse)) {
-        error_log("ERREUR: Champs vides");
-        echo json_encode(['success' => false, 'message' => 'Login et mot de passe requis']);
-        return;
-    }
-
-    $user = $this->User_model->get_user_by_login($login);
-    error_log("Utilisateur trouvé: " . print_r($user, true));
-
-    if (!$user) {
-        error_log("ERREUR: Utilisateur non trouvé");
-        echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
-        return;
-    }
-
-    if ($user['MOTDEPASSE'] !== $motdepasse) {
-        error_log("ERREUR: Mot de passe incorrect");
-        error_log("Attendu: " . $user['MOTDEPASSE'] . " - Reçu: " . $motdepasse);
-        echo json_encode(['success' => false, 'message' => 'Identifiant ou mot de passe incorrect']);
-        return;
-    }
-
-    error_log("Connexion réussie pour: " . $user['LOGIN'] . " - Rôle: " . $user['ROLE']);
-
-    // Session
-    $this->session->set_userdata([
-        'admin_loggedin' => true,
-        'login' => $user['LOGIN'],
-        'nom' => $user['NOM'],
-        'prenom' => $user['PRENOM'],
-        'role' => $user['ROLE'],
-        'email' => $user['EMAIL']
-    ]);
-
-    // Déterminer la redirection
-    $redirect_url = $this->get_redirect_url_by_role($user['ROLE']);
-    error_log("URL de redirection: " . $redirect_url);
-
-    echo json_encode([
-        'success' => true, 
-        'message' => 'Connexion ' . $user['ROLE'] . ' réussie',
-        'redirect' => $redirect_url
-    ]);
-    
-    error_log("=== FIN LOGIN ADMIN AJAX ===");
-}
-
-private function get_redirect_url_by_role($role) {
-    switch ($role) {
-        case 'SUPER_ADMIN':
-        case 'ADMIN':
-            return base_url('dashboard_admin');
-        case 'GUICHET':
-            return base_url('dashboard_guichet');
-        default:
-            return base_url('dashboard_admin');
-    }
-}
-
-
-
-/**
- * Déterminer l'URL de redirection selon le rôle
- */
-/*
-private function get_redirect_url_by_role($role) {
-    switch ($role) {
-        case 'SUPER_ADMIN':
-            return base_url('dashboard_admin');  // Même dashboard que ADMIN pour l'instant
-        case 'ADMIN':
-            return base_url('dashboard_admin');
-        case 'GUICHET':
-            return base_url('dashboard_guichet');  // À créer
-        default:
-            return base_url('dashboard_admin');
-    }
-}
-*/
     // Déconnexion (étudiant ou admin)
     public function logout() {
         $this->session->sess_destroy();
-        //redirect('auth');
         redirect(base_url()); // Redirige vers la racine
     }
 }

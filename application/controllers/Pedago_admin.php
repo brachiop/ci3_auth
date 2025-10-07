@@ -2,7 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pedago_admin extends CI_Controller {
-
+            private $tbl_filieres;
+            private $tbl_parcours;
+            private $tbl_modules;
         public function __construct() {
             parent::__construct();
             
@@ -12,7 +14,12 @@ class Pedago_admin extends CI_Controller {
                 redirect('auth/admin'); // Redirige vers la page admin d'auth
             }
             
-            $this->load->model('Pedago_model');
+              $this->config->load('parametrage');
+              $this->tbl_filieres = $this->config->item('tbl_filieres');
+              $this->tbl_parcours = $this->config->item('tbl_parcours');
+              $this->tbl_modules = $this->config->item('tbl_modules');
+            
+              $this->load->model('Pedago_model');
         }
         
         public function filieres()
@@ -60,7 +67,5 @@ class Pedago_admin extends CI_Controller {
             
             $this->load->view('admin/liste_modules', $data);
         }
-
-        
 }
 ?>
