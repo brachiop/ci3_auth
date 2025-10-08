@@ -35,6 +35,18 @@
 
             <?php if ($this->session->userdata('role') === 'SUPER_ADMIN'): ?>
             
+                <!-- Section Administration -->
+                <li class="nav-item nav-category">Administration</li>
+
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?= site_url('admin_menus') ?>">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-menu"></i>
+                        </span>
+                        <span class="menu-title">Gestion des Menus</span>
+                    </a>
+                </li>
+                
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="<?= site_url('admin/utilisateurs') ?>">
                         <span class="menu-icon"><i class="mdi mdi-account-settings"></i></span>

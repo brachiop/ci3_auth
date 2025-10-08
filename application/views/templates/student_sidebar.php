@@ -14,6 +14,13 @@
                 <span class="short-title">Menu</span>
             </li>
 
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?= site_url('dashboard') ?>">
+                <span class="menu-icon"><i class="mdi mdi-speedometer"></i></span>
+                <span class="menu-title">Tableau de Bord</span>
+            </a>
+        </li>
+
             <!-- Mes Infos -->
             <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="#mesInfos" aria-expanded="false" aria-controls="mesInfos">
@@ -49,15 +56,6 @@
 </li>
 
 
-
-
-
-
-
-
-
-
-
             <li class="nav-item menu-items">
                 <a class="nav-link" data-toggle="collapse" href="#inscription" aria-expanded="false" aria-controls="inscription">
                     <span class="menu-icon"><i class="mdi mdi-pencil-box-outline"></i></span>
@@ -71,6 +69,14 @@
                     </ul>
                 </div>
             </li>
+            
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="<?= site_url('etudiant/mes_groupes') ?>">
+                    <span class="menu-icon"><i class="mdi mdi-account-group"></i></span>
+                    <span class="menu-title">Mes Groupes</span>
+                </a>
+            </li>
+
 
             <!-- Examens -->
             <li class="nav-item menu-items">
@@ -104,7 +110,7 @@
                 </div>
             </li>
             
-            <!-- Déconnexion - BIEN ALIGNÉ -->
+            <!-- Menu Déconnexion -->
             <li class="nav-item menu-items">
                 <a class="nav-link" href="<?= site_url('auth/logout') ?>">
                     <span class="menu-icon"><i class="mdi mdi-logout"></i></span>

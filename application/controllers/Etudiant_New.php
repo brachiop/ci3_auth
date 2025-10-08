@@ -45,52 +45,28 @@ class Etudiant extends CI_Controller {
           $this->load->view('etudiant/infos_scolaires', $data);
       }
 
-      public function modules_inscription()
-      {
-          if (!$this->session->userdata('loggedin')) {
-              redirect('auth/login');
-          }
-
-          if (!est_menu_actif('mes_modules')) {
-              show_error('Cette fonctionnalité n\'est pas disponible pour le moment.', 403);
-          }            
-
+      public function modules_inscription() {
           $data['page_title'] = 'État d\'Inscription';
-          $data['active_menu'] = 'mes_modules';
+          $data['active_menu'] = 'modules_inscription';
           $data['annee_univ'] = $this->annee_univ;
-          $data['menus_actifs'] = $this->Menu_model->get_menus_etudiant_actifs();
           
-          // Récupérer le CNE de l'étudiant connecté depuis la session
           $cne = $this->session->userdata('cne');
-          
           $this->load->model('Etudiant_model');
           $data['infos_etudiant'] = $this->Etudiant_model->get_infos_etudiant_complet($cne);
           
-          $this->load->view('etudiant/modules_inscription', $data);
+          $this->load_etudiant_view('etudiant/modules_inscription', $data);
       }
 
-      public function mes_groupes()
-      {
-          if (!$this->session->userdata('loggedin')) {
-              redirect('auth/login');
-          }
-
+      public function mes_groupes() {
           $data['page_title'] = 'Mes Groupes et Sections';
           $data['active_menu'] = 'mes_groupes';
           $data['annee_univ'] = $this->annee_univ;
-          $data['menus_actifs'] = $this->Menu_model->get_menus_etudiant_actifs();
-          
-          if (!est_menu_actif('mes_groupes')) {
-              show_error('Cette fonctionnalité n\'est pas disponible pour le moment.', 403);
-          }          
           
           $cne = $this->session->userdata('cne');
-          
-          //$this->load->model('Etudiant_model');
+          $this->load->model('Etudiant_model');
           $sections = $this->Etudiant_model->get_sections_etudiant($cne);
           $data['sections'] = $sections;
           
-          // Infos depuis la session et première section
           $data['etudiant_info'] = array(
               'cne' => $this->session->userdata('cne'),
               'nom_prenom' => $this->session->userdata('nom') . ' ' . $this->session->userdata('prenom'),
@@ -98,10 +74,7 @@ class Etudiant extends CI_Controller {
               'code_parc' => !empty($sections) ? $sections[0]['CODE_PARC'] : ''
           );
           
-          $this->load->view('templates/header');            //, $data
-          $this->load->view('templates/student_sidebar');
-          $this->load->view('etudiant/mes_groupes', $data);
-          $this->load->view('templates/footer');
+          $this->load_etudiant_view('etudiant/mes_groupes', $data);
       }
 
       private function load_etudiant_view($view, $data = array())

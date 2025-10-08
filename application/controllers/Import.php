@@ -2,7 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Import extends CI_Controller {
-
+            private $tbl_filieres;
+            private $tbl_parcours;
+            private $tbl_modules;
         public function __construct() {
             parent::__construct();
             
@@ -13,6 +15,11 @@ class Import extends CI_Controller {
             }
             
             $this->load->model('Import_model');
+                  $this->config->load('parametrage');
+                  // Initialiser les variables pour toutes les méthodes
+                  $this->tbl_filieres = $this->config->item('tbl_filieres');
+                  $this->tbl_parcours = $this->config->item('tbl_parcours');
+                  $this->tbl_modules = $this->config->item('tbl_modules');
         }
 
         public function import($type) {
@@ -103,15 +110,15 @@ class Import extends CI_Controller {
             $config = [                                                 // ← Ajoutez ici les nouvelles tables
                 'filieres' => [
                     'filename' => 'template_filieres.csv',
-                    'table' => 'filieres'
+                    'table' => $this->tbl_filieres
                 ],
                 'parcours' => [
                     'filename' => 'template_parcours.csv',
-                    'table' => 'parcours'
+                    'table' => $this->tbl_parcours
                 ],
                 'modules' => [
                     'filename' => 'template_modules.csv',
-                    'table' => 'modules'
+                    'table' => $this->tbl_modules
                 ]
             ];
             

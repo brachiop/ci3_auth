@@ -15,7 +15,7 @@ class Auth extends CI_Controller {
           $this->load->model('User_model');      // Pour admins
       
           $this->load->library('session');
-          $this->load->helper(array('url', 'form', 'session_helper', 'data_helper'));
+          $this->load->helper(array('url', 'form', 'session', 'data'));
       }
 
 

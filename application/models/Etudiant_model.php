@@ -46,12 +46,6 @@ class Etudiant_model extends CI_Model {
             return $query->row_array();
         }
 
-/*    public function get_etudiant_by_id($id) {
-        $query = $this->db->get_where('etudiants', array('ID' => $id));
-        return $query->row_array();
-    }
-*/    
-
     /**
      * Récupérer les étudiants paginés
      */
@@ -201,118 +195,108 @@ class Etudiant_model extends CI_Model {
           return $query->result_array();
       }         
 
+      public function get_infos_etudiant_complet($cne)
+      {
+          
+          // Utiliser les variables dans les requêtes
+          $this->db->where('CNE', $cne);
+          $query_inscription = $this->db->get($this->tbl_inscription); 
+          
+          if ($query_inscription->num_rows() > 0) {
+              $inscription_data = $query_inscription->row_array();
+              $code_fil = $inscription_data['CODE_FIL'];
+              $code_parc = $inscription_data['CODE_PARC'];
+              
+              // Récupérer infos filière
+              $this->db->where('CODE_FIL', $code_fil);
+              $filiere = $this->db->get($this->tbl_filieres)->row_array();
+              
+              // Récupérer infos parcours si différent
+              $parcours = null;
+              if ($code_parc != $code_fil) {
+                  $this->db->where('CODE_FIL', $code_fil);
+                  $this->db->where('CODE_PARC', $code_parc);
+                  $parcours = $this->db->get($this->tbl_parcours)->row_array();
+              }
+              
+              $modules_automne = array();
+              $modules_printemps = array();
+              
+              // Parcourir les modules M1 à M42
+              for ($i = 1; $i <= $this->nbr_modules; $i++) {
+                  $module_key = 'M' . $i;
+                  $ni_key = 'M' . $i . '_NI';
+                  
+                  if (isset($inscription_data[$module_key]) && $inscription_data[$module_key] == 'I') {
+                      // Calculer le semestre
+                      $semestre = ceil($i / 7);
+                      
+                      // Chercher les détails du module avec conditions différentes selon le semestre
+                      $this->db->where('CODE_FIL', $code_fil);
+                      
+                      if ($semestre >= 5) {
+                          // Semestres 5-6 : chercher avec parcours
+                          $this->db->where('CODE_PARC', $code_parc);
+                      }
+                      // Semestres 1-4 : pas de condition CODE_PARC (recherche seulement par filière)
+                      
+                      $this->db->where('SEMESTRE', $semestre);
+                      $this->db->where('CODE_MAPG', 'M' . $i);
+                      $query_module = $this->db->get($this->tbl_modules);
+                      
+                      $module_details = array(
+                          'module_num' => 'M' . $i,
+                          'semestre' => $semestre,
+                          'ni' => isset($inscription_data[$ni_key]) ? $inscription_data[$ni_key] : 0,
+                          'code_mod' => 'N/A',
+                          'libelle_mod' => 'Module M' . $i,
+                          'recherche_par' => ($semestre >= 5) ? 'filiere_parcours' : 'filiere_seule'
+                      );
+                      
+                      if ($query_module->num_rows() > 0) {
+                          $module_data = $query_module->row_array();
+                          $module_details['code_mod'] = $module_data['CODE_MOD'];
+                          $module_details['libelle_mod'] = $module_data['LIBEL_MOD'];
+                          $module_details['periode'] = $module_data['PERIODE'];
+                      } else {
+                          // Debug: voir pourquoi la recherche échoue
+                          $module_details['debug'] = "Recherche: CODE_FIL=$code_fil, SEMESTRE=$semestre, CODE_MAPG=M$i" . 
+                                                    ($semestre >= 5 ? ", CODE_PARC=$code_parc" : "");
+                      }
+                      
+                      // Séparer par période
+                      if (isset($module_details['periode']) && $module_details['periode'] == 'A') {
+                          $modules_automne[] = $module_details;
+                      } else {
+                          $modules_printemps[] = $module_details;
+                      }
+                  }
+              }
+              
+              return array(
+                  'filiere' => $filiere,
+                  'parcours' => $parcours,
+                  'modules_automne' => $modules_automne,
+                  'modules_printemps' => $modules_printemps,
+                  'code_fil' => $code_fil,
+                  'code_parc' => $code_parc,
+                  'etudiant_info' => array(
+                      'cne' => $inscription_data['CNE'],
+                      'nom_prenom' => $inscription_data['NOM_PRENOM'],
+                      'c_massar' => $inscription_data['C_MASSAR']
+                  )
+              );
+          }
+          
+          return null;
+      }
 
-
-
-    /**
-     * Récupérer les notes d'un étudiant
-     */
-/*
-    public function get_notes_etudiant($cne) {
-        $this->db->where('CNE', $cne);
-        $query = $this->db->get('examens');
-        return $query->result_array();
-    }
-*/
-
-
-public function get_infos_etudiant_complet($cne)
-{
-    
-    // Utiliser les variables dans les requêtes
-    $this->db->where('CNE', $cne);
-    $query_inscription = $this->db->get($this->tbl_inscription); 
-    
-    if ($query_inscription->num_rows() > 0) {
-        $inscription_data = $query_inscription->row_array();
-        $code_fil = $inscription_data['CODE_FIL'];
-        $code_parc = $inscription_data['CODE_PARC'];
-        
-        // Récupérer infos filière
-        $this->db->where('CODE_FIL', $code_fil);
-        $filiere = $this->db->get($this->tbl_filieres)->row_array();
-        
-        // Récupérer infos parcours si différent
-        $parcours = null;
-        if ($code_parc != $code_fil) {
-            $this->db->where('CODE_FIL', $code_fil);
-            $this->db->where('CODE_PARC', $code_parc);
-            $parcours = $this->db->get($this->tbl_parcours)->row_array();
-        }
-        
-        $modules_automne = array();
-        $modules_printemps = array();
-        
-        // Parcourir les modules M1 à M42
-        for ($i = 1; $i <= $this->nbr_modules; $i++) {
-            $module_key = 'M' . $i;
-            $ni_key = 'M' . $i . '_NI';
-            
-            if (isset($inscription_data[$module_key]) && $inscription_data[$module_key] == 'I') {
-                // Calculer le semestre
-                $semestre = ceil($i / 7);
-                
-                // Chercher les détails du module avec conditions différentes selon le semestre
-                $this->db->where('CODE_FIL', $code_fil);
-                
-                if ($semestre >= 5) {
-                    // Semestres 5-6 : chercher avec parcours
-                    $this->db->where('CODE_PARC', $code_parc);
-                }
-                // Semestres 1-4 : pas de condition CODE_PARC (recherche seulement par filière)
-                
-                $this->db->where('SEMESTRE', $semestre);
-                $this->db->where('CODE_MAPG', 'M' . $i);
-                $query_module = $this->db->get($this->tbl_modules);
-                
-                $module_details = array(
-                    'module_num' => 'M' . $i,
-                    'semestre' => $semestre,
-                    'ni' => isset($inscription_data[$ni_key]) ? $inscription_data[$ni_key] : 0,
-                    'code_mod' => 'N/A',
-                    'libelle_mod' => 'Module M' . $i,
-                    'recherche_par' => ($semestre >= 5) ? 'filiere_parcours' : 'filiere_seule'
-                );
-                
-                if ($query_module->num_rows() > 0) {
-                    $module_data = $query_module->row_array();
-                    $module_details['code_mod'] = $module_data['CODE_MOD'];
-                    $module_details['libelle_mod'] = $module_data['LIBEL_MOD'];
-                    $module_details['periode'] = $module_data['PERIODE'];
-                } else {
-                    // Debug: voir pourquoi la recherche échoue
-                    $module_details['debug'] = "Recherche: CODE_FIL=$code_fil, SEMESTRE=$semestre, CODE_MAPG=M$i" . 
-                                              ($semestre >= 5 ? ", CODE_PARC=$code_parc" : "");
-                }
-                
-                // Séparer par période
-                if (isset($module_details['periode']) && $module_details['periode'] == 'A') {
-                    $modules_automne[] = $module_details;
-                } else {
-                    $modules_printemps[] = $module_details;
-                }
-            }
-        }
-        
-        return array(
-            'filiere' => $filiere,
-            'parcours' => $parcours,
-            'modules_automne' => $modules_automne,
-            'modules_printemps' => $modules_printemps,
-            'code_fil' => $code_fil,
-            'code_parc' => $code_parc,
-            'etudiant_info' => array(
-                'cne' => $inscription_data['CNE'],
-                'nom_prenom' => $inscription_data['NOM_PRENOM'],
-                'c_massar' => $inscription_data['C_MASSAR']
-            )
-        );
-    }
-    
-    return null;
-}
-
-
+      public function get_sections_etudiant($cne)
+      {
+          $this->db->where('CNE', $cne);
+          $this->db->order_by('SEMESTRE', 'ASC');
+          return $this->db->get('sections')->result_array();
+      }
 
 }
 ?>

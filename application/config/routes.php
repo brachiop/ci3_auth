@@ -82,11 +82,20 @@ $route['admin/modules'] = 'Pedago_admin/modules';
 
 // inscription Etudiant
 $route['etudiant/inscription_actuelle'] = 'etudiant/modules_inscription';
-$route['etudiant/dashboard'] = 'etudiant/dashboard';
+$route['etudiant/dashboard'] = 'dashboard';
+//$route['etudiant/dashboard'] = 'etudiant/dashboard';
 
 // Parametrage
 $route['parametrage'] = 'parametrage/index';
 $route['parametrage/sauvegarder'] = 'parametrage/sauvegarder';
+
+// Mes Groupes
+$route['etudiant/mes_groupes'] = 'etudiant/mes_groupes';
+
+// Gestion Menus Etudiants
+$route['admin_menus'] = 'admin_menus/index';
+$route['admin_menus/activer'] = 'admin_menus/activer_menu';
+$route['admin_menus/desactiver/(:any)'] = 'admin_menus/desactiver_menu/$1';
 
 // Import CSV
 // URL --> Controleur_méthode
