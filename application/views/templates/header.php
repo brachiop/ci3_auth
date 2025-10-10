@@ -14,5 +14,6 @@
   <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
   <link rel="shortcut icon" href="<?= base_url('assets/images/favicon.png') ?>" />
+  <script src="<?= base_url('assets/js/jquery-3.6.0.min.js') ?>"></script>
 </head>
 <body>

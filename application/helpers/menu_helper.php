@@ -1,38 +1,37 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (!function_exists('generer_menu_etudiant')) {
-    function generer_menu_etudiant($menus_actifs) {
-        $html = '';
-        
-        foreach ($menus_actifs as $menu) {
-            $html .= '
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="' . site_url($menu['menu_url']) . '">
-                    <span class="menu-icon">
-                        <i class="mdi ' . $menu['menu_icon'] . '"></i>
-                    </span>
-                    <span class="menu-title">' . $menu['menu_nom'] . '</span>
-                </a>
-            </li>';
-        }
-        
-        return $html;
+function est_menu_actif($menu_code) {
+    $CI =& get_instance();
+    $CI->load->model('Menu_model');
+    
+    // Récupérer le menu spécifique
+    $CI->db->where('menu_code', $menu_code);
+    $menu = $CI->db->get('menus_etudiant')->row_array();
+    
+    if (!$menu) {
+        return false;
     }
-}
-
-if (!function_exists('est_menu_actif')) {
-    function est_menu_actif($menu_code) {
-        $CI =& get_instance();
-        $CI->load->model('Menu_model');
-        $menus = $CI->Menu_model->get_menus_etudiant_actifs();
-        
-        foreach ($menus as $menu) {
-            if ($menu['menu_code'] == $menu_code) {
-                return TRUE;
-            }
-        }
-        return FALSE;
+    
+    // NOUVELLE LOGIQUE basée sur est_actif + dates
+    if ($menu['est_actif'] != 1) {
+        return false; // Menu désactivé
     }
+    
+    $current_date = date('Y-m-d');
+    
+    // Cas 1: Dates NULL ou vides → toujours visible
+    if ((empty($menu['date_debut']) || $menu['date_debut'] == '0000-00-00') && 
+        (empty($menu['date_fin']) || $menu['date_fin'] == '0000-00-00')) {
+        return true;
+    }
+    
+    // Cas 2: Dates remplies → vérifier la période
+    if (!empty($menu['date_debut']) && !empty($menu['date_fin']) &&
+        $menu['date_debut'] <= $current_date && 
+        $menu['date_fin'] >= $current_date) {
+        return true;
+    }
+    
+    return false;
 }
-?>

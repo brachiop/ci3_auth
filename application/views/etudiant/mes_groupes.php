@@ -1,3 +1,14 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php 
+/*
+$this->load->view('templates/header');
+$this->load->view('templates/student_sidebar', ['menus_etudiant' => $menus_etudiant]);
+$this->load->view('templates/student_sidebar'); 
+$this->load->view('templates/navbar'); 
+*/
+?>
+
+<!-- Main Panel -->
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
@@ -111,4 +122,4 @@
             </div>
         </div>
     </div>
-</div>
+<?php //$this->load->view('templates/footer'); ?>

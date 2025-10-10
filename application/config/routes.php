@@ -80,22 +80,23 @@ $route['admin/filieres'] = 'Pedago_admin/filieres';
 $route['admin/parcours'] = 'Pedago_admin/parcours';
 $route['admin/modules'] = 'Pedago_admin/modules';
 
-// inscription Etudiant
-$route['etudiant/inscription_actuelle'] = 'etudiant/modules_inscription';
-$route['etudiant/dashboard'] = 'dashboard';
-//$route['etudiant/dashboard'] = 'etudiant/dashboard';
+//  dashboard Etudiant
+$route['etudiant/dashboard'] = 'etudiant/index';
+$route['dashboard'] = 'etudiant/index';
 
 // Parametrage
 $route['parametrage'] = 'parametrage/index';
 $route['parametrage/sauvegarder'] = 'parametrage/sauvegarder';
 
-// Mes Groupes
+// Mes ...
 $route['etudiant/mes_groupes'] = 'etudiant/mes_groupes';
+$route['etudiant/mes_modules'] = 'etudiant/modules_inscription';
+$route['etudiant/inscription_actuelle'] = 'etudiant/modules_inscription';
 
 // Gestion Menus Etudiants
 $route['admin_menus'] = 'admin_menus/index';
-$route['admin_menus/activer'] = 'admin_menus/activer_menu';
-$route['admin_menus/desactiver/(:any)'] = 'admin_menus/desactiver_menu/$1';
+$route['admin_menus/activer_menu'] = 'admin_menus/activer_menu';
+$route['admin_menus/desactiver_menu/(:any)'] = 'admin_menus/desactiver_menu/$1';
 
 // Import CSV
 // URL --> Controleur_méthode
@@ -109,8 +110,6 @@ $route['import/template_filieres'] = 'import/download_template_filieres';
 $route['import/parcours'] = 'import/import_parcours';
 $route['import/download_template_parcours'] = 'import/download_template_parcours';
 */
-
-
 //$route['import/modules'] = 'import/modules';
 
 // dashboard admin

@@ -14,30 +14,27 @@
                 <span class="short-title">Menu</span>
             </li>
             
-    <!-- Menu selon le rôle -->
-    <?php if ($this->session->userdata('admin_loggedin') || $this->session->userdata('loggedin')): ?>
-            
-                <!-- Dashboard selon le rôle -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="<?=
-                    $this->session->userdata('admin_loggedin') ? 
-                        ($this->session->userdata('role') == 'GUICHET' ? site_url('dashboard_guichet') : site_url('dashboard_admin')) 
-                    : site_url('dashboard') ?>">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-speedometer menu-icon"></i>
-                    </span>
-                    <span class="menu-title">Dashboard</span>
-                </a>
-            </li>
-    <?php endif; ?>
+            <!-- Menu selon le rôle -->
+            <?php if ($this->session->userdata('admin_loggedin') || $this->session->userdata('loggedin')): ?>
+                
+                    <!-- Dashboard selon le rôle -->
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?=
+                        $this->session->userdata('admin_loggedin') ? 
+                            ($this->session->userdata('role') == 'GUICHET' ? site_url('dashboard_guichet') : site_url('dashboard_admin')) 
+                        : site_url('dashboard') ?>">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-speedometer menu-icon"></i>
+                        </span>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <!-- Menu Gestion des Utilisateurs (SUPER_ADMIN seulement) -->
 
             <?php if ($this->session->userdata('role') === 'SUPER_ADMIN'): ?>
             
-                <!-- Section Administration -->
-                <li class="nav-item nav-category">Administration</li>
-
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="<?= site_url('admin_menus') ?>">
                         <span class="menu-icon">
@@ -74,31 +71,24 @@
                 </li>            
 
   
-  
-  
- <li class="nav-item menu-items">
-    <a class="nav-link" href="<?php echo site_url('admin/filieres'); ?>">
-        <span class="menu-icon"><i class="mdi mdi-school"></i></span>
-        <span class="menu-title">Filieres</span>
-    </a>
-</li>
-<li class="nav-item menu-items">
-    <a class="nav-link" href="<?php echo site_url('admin/parcours'); ?>">
-        <span class="menu-icon"><i class="mdi mdi-book-multiple"></i></span>
-        <span class="menu-title">Parcours</span>
-    </a>
-</li>
-<li class="nav-item menu-items">
-    <a class="nav-link" href="<?php echo site_url('admin/modules'); ?>">
-        <span class="menu-icon"><i class="mdi mdi-book-open"></i></span>
-        <span class="menu-title">Modules</span>
-    </a>
-</li> 
-  
-  
-  
-  
-  
+                 <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?php echo site_url('admin/filieres'); ?>">
+                        <span class="menu-icon"><i class="mdi mdi-school"></i></span>
+                        <span class="menu-title">Filieres</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?php echo site_url('admin/parcours'); ?>">
+                        <span class="menu-icon"><i class="mdi mdi-book-multiple"></i></span>
+                        <span class="menu-title">Parcours</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="<?php echo site_url('admin/modules'); ?>">
+                        <span class="menu-icon"><i class="mdi mdi-book-open"></i></span>
+                        <span class="menu-title">Modules</span>
+                    </a>
+                </li> 
   
                                                     <!-- Importation des Données  -->
                 <!-- <li class="nav-item nav-category">Importation</li> -->
@@ -147,107 +137,8 @@
                     </a>
                 </li>
                 
-                
-                
     <?php endif; ?>
 
-
-                <!-- MENU SPÉCIFIQUE POUR GUICHET -->
-        <?php if ($this->session->userdata('role') === 'GUICHET'): ?>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="<?= site_url('guichet/certificat') ?>">
-                        <span class="menu-icon"><i class="mdi mdi-account-group"></i></span>
-                        <span class="menu-title">Certificat Actuel</span>
-                    </a>
-                </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="<?= site_url('guichet/old_certificat') ?>">
-                        <span class="menu-icon"><i class="mdi mdi-clipboard-account"></i></span>
-                        <span class="menu-title">Certificat Ancien</span>
-                    </a>
-                </li>
-                
-                 <li class="nav-item menu-items">
-                    <a class="nav-link" href="<?= site_url('guichet/historique') ?>">
-                        <span class="menu-icon"><i class="mdi mdi-file-document"></i></span>
-                        <span class="menu-title">Historique</span>
-                    </a>
-                </li>
-                               
-
-        <?php endif; ?>
-
-
-            <!-- Mes Infos -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#mesInfos" aria-expanded="false" aria-controls="mesInfos">
-                    <span class="menu-icon"><i class="mdi mdi-account-card-details"></i></span>
-                    <span class="menu-title">Mes Infos</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="mesInfos">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('etudiant/infos_privees') ?>">Privées</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('etudiant/infos_scolaires') ?>">Scolaires</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Cursus -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="<?= site_url('cursus') ?>">
-                    <span class="menu-icon"><i class="mdi mdi-school"></i></span>
-                    <span class="menu-title">Cursus</span>
-                </a>
-            </li>
-
-            <!-- Inscription -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#inscription" aria-expanded="false" aria-controls="inscription">
-                    <span class="menu-icon"><i class="mdi mdi-pencil-box-outline"></i></span>
-                    <span class="menu-title">Inscription</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="inscription">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('inscription/reinscription') ?>">Réinscription</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('inscription/actuelle') ?>">Actuelle</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Examens -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#examens" aria-expanded="false" aria-controls="examens">
-                    <span class="menu-icon"><i class="mdi mdi-book-open-page-variant"></i></span>
-                    <span class="menu-title">Examens</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="examens">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('examens/convocation') ?>">Convocation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('examens/resultat') ?>">Résultat</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('examens/reclamation') ?>">Réclamation</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <!-- Lois -->
-            <li class="nav-item menu-items">
-                <a class="nav-link" data-toggle="collapse" href="#lois" aria-expanded="false" aria-controls="lois">
-                    <span class="menu-icon"><i class="mdi mdi-gavel"></i></span>
-                    <span class="menu-title">Lois</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse" id="lois">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('lois/inscription') ?>">Inscription</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('lois/evaluation') ?>">Évaluation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?= site_url('lois/cahier_normes') ?>">Cahier des normes</a></li>
-                    </ul>
-                </div>
-            </li>
-            
             <!-- Déconnexion - BIEN ALIGNÉ -->
             <li class="nav-item menu-items">
                 <a class="nav-link" href="<?= site_url('auth/logout') ?>">

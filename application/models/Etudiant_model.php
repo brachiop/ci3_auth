@@ -190,7 +190,8 @@ class Etudiant_model extends CI_Model {
       public function get_inscriptions_etudiant($cne)
       {
           $this->db->where('CNE', $cne);
-          $this->db->order_by('ANNEE_UNIV DESC, CODE_MOD');
+          //$this->db->order_by('ANNEE_UNIV DESC, CODE_MOD');
+          $this->db->order_by('ANNEE DESC, CODE_FIL');
           $query = $this->db->get($this->tbl_inscription);
           return $query->result_array();
       }         

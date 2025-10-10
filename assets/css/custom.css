@@ -56,3 +56,20 @@
     font-weight: bold;
     color: #3AF24B; /* vert clair */
 }
+
+/* Pour validation dates gestion menus */
+.input-error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.period-expired {
+    background-color: #fff3cd !important;
+    border-color: #ffeaa7 !important;
+}
+
+.date-hint {
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-top: 5px;
+}

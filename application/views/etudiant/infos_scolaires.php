@@ -1,14 +1,14 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
-
-<?php $this->load->view('templates/header'); ?>
-<?php $this->load->view('templates/student_sidebar'); ?>
-<?php $this->load->view('templates/navbar'); ?> 
-
+<?php 
+/*
+$this->load->view('templates/header');
+$this->load->view('templates/student_sidebar');
+$this->load->view('templates/navbar');
+*/
+?> 
         <!-- Main Panel -->
         <div class="main-panel">
             <div class="content-wrapper">
-
-
                 <div class="container">
                     <h3>Informations Scolaires</h3>
                     <div class="card">
@@ -24,8 +24,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             
             <!-- Footer -->
-            <?php $this->load->view('templates/footer'); ?>
+            <?php //$this->load->view('templates/footer'); ?>
